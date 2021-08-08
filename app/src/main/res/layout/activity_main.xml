@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PET"
+            android:background=""
             app:layout_constraintEnd_toStartOf="@+id/button_main_can"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,11 +60,11 @@
             app:layout_constraintTop_toTopOf="@+id/button_main_pet" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_main_glass"
+            android:id="@+id/button_main_metal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="GLASS"
+            android:text="METAL"
             app:layout_constraintEnd_toStartOf="@+id/button_main_vinyl"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +77,8 @@
             android:text="VINYL"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_main_glass"
-            app:layout_constraintTop_toTopOf="@+id/button_main_glass" />
+            app:layout_constraintStart_toEndOf="@+id/button_main_metal"
+            app:layout_constraintTop_toTopOf="@+id/button_main_metal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,6 +30,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    // for view binding
+    // Android Studio 4.0
+    buildFeatures {
+        viewBinding = true
+    }
+
+    // Available in Android Gradle Plugin 3.6.0
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
