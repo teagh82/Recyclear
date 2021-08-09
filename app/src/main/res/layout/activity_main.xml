@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textview_main_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#AAFFAA"
+        android:background="#FBF7E9"
         android:gravity="center"
         android:paddingVertical="10dp"
-        android:text="Recycler"
-        android:textColor="@color/black"
+        android:text="Recyclear"
+        android:textColor="#1B831B"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/textview_main_title"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintlayout_main_buttons"
@@ -28,53 +37,55 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_main_title">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/button_main_pet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PET"
-            android:background=""
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/icon_plastic"
             app:layout_constraintEnd_toStartOf="@+id/button_main_can"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/button_main_paper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PAPER"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/icon_paper"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_main_can"
             app:layout_constraintTop_toTopOf="@+id/button_main_can" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/button_main_can"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CAN"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/icon_can"
             app:layout_constraintEnd_toStartOf="@+id/button_main_paper"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_main_pet"
             app:layout_constraintTop_toTopOf="@+id/button_main_pet" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/button_main_metal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="METAL"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/icon_metal"
             app:layout_constraintEnd_toStartOf="@+id/button_main_vinyl"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_main_pet" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/button_main_vinyl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VINYL"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/icon_vinyl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_main_metal"

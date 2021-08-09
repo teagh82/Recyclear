@@ -1,11 +1,12 @@
-package com.sungshin.recyclear
+package com.sungshin.recyclear.metal
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sungshin.recyclear.R
 
-class CanActivity : AppCompatActivity() {
+class MetalActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_can)
+        setContentView(R.layout.activity_metal)
     }
 }

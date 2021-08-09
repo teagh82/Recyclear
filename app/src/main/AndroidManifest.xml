@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sungshin.recyclear">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Recyclear">
-        <activity android:name=".VinylActivity"></activity>
-        <activity android:name=".MetalActivity" />
-        <activity android:name=".PetActivity" />
-        <activity android:name=".PaperActivity" />
-        <activity android:name=".CanActivity" />
+        <activity android:name=".vinyl.VinylActivity"></activity>
+        <activity android:name=".metal.MetalActivity" />
+        <activity android:name=".plastic.PetActivity" />
+        <activity android:name=".paper.PaperActivity" />
+        <activity android:name=".can.CanActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
