@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".plastic.PetActivity">
+    tools:context=".glass.GlassActivity">
 
     <TextView
-        android:id="@+id/textview_pet_title"
+        android:id="@+id/textview_glass_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#AAFFAA"
         android:gravity="center"
         android:paddingVertical="10dp"
-        android:text="PET"
+        android:text="GLASS"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -22,12 +22,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_pet"
+        android:id="@+id/fragment_container_glass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_pet_title" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_glass_title" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.sungshin.recyclear.can.CanActivity
 import com.sungshin.recyclear.databinding.ActivityMainBinding
+import com.sungshin.recyclear.glass.GlassActivity
 import com.sungshin.recyclear.metal.MetalActivity
 import com.sungshin.recyclear.paper.PaperActivity
 import com.sungshin.recyclear.plastic.PetActivity
@@ -48,6 +49,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, VinylActivity::class.java)
             startActivity(intent)
             Log.d("button", "VINYL")
+        }
+        binding.buttonMainGlass.setOnClickListener {
+            val intent = Intent(this@MainActivity, GlassActivity::class.java)
+            startActivity(intent)
+            Log.d("button", "GLASS")
         }
     }
 }
