@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.sungshin.recyclear.can.CanDetailActivity
 import com.sungshin.recyclear.databinding.ItemCanListBinding
 
-class CanListAdapter  : RecyclerView.Adapter<CanListAdapter.CanListViewHolder>() {
+class CanListAdapter : RecyclerView.Adapter<CanListAdapter.CanListViewHolder>() {
 
     val canList = mutableListOf<CanListInfo>()
 

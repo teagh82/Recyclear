@@ -10,13 +10,13 @@ class CanActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-                binding = ActivityCanBinding.inflate(layoutInflater)
-                setContentView(binding.root)
+        binding = ActivityCanBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-                val canListFragment = CanListFragment()
+        val canListFragment = CanListFragment()
 
-                val transaction = supportFragmentManager.beginTransaction()
-                transaction.add(R.id.fragment_container_can, canListFragment)
-                transaction.commit()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fragment_container_can, canListFragment)
+        transaction.commit()
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="labeling_class">
+        <item>can</item>
+        <item>paper</item>
+        <item>plastic</item>
+        <item>vinyl</item>
+        <item>glass</item>
+        <item>metal</item>
+    </string-array>
+</resources>

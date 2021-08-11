@@ -103,7 +103,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:text="CHECK"
-            android:textColor="@color/yellow_back"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"

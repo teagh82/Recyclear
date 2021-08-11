@@ -1,6 +1,6 @@
-package com.sungshin.recyclear.vinyl.vinyllist
+package com.sungshin.recyclear.check.checklist
 
-data class VinylListInfo (
+data class CheckListInfo(
     val detect_image: String,
     val detect_date: String,
     val detect_percent: String
