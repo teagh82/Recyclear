@@ -55,5 +55,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             Log.d("button", "GLASS")
         }
+        binding.buttonMainCheck.setOnClickListener {
+            val intent = Intent(this@MainActivity, CheckActivity::class.java)
+            startActivity(intent)
+            Log.d("button", "CHECK")
+        }
     }
 }

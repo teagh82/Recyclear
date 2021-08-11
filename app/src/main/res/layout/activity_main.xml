@@ -12,11 +12,11 @@
         android:id="@+id/textview_main_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FBF7E9"
+        android:background="@color/yellow_back"
         android:gravity="center"
         android:paddingVertical="10dp"
         android:text="Recyclear"
-        android:textColor="#1B831B"
+        android:textColor="@color/green_title"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -97,6 +97,23 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_main_vinyl"
             app:layout_constraintTop_toTopOf="@+id/button_main_metal" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_main_check"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="CHECK"
+            android:textColor="@color/yellow_back"
+            android:textSize="20sp"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/btn_radius_check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_main_vinyl" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
