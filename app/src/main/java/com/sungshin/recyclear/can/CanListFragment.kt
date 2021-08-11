@@ -5,9 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.sungshin.recyclear.R
-import com.sungshin.recyclear.can.canRV.CanListAdapter
-import com.sungshin.recyclear.can.canRV.CanListInfo
+import com.sungshin.recyclear.can.canlist.CanListAdapter
+import com.sungshin.recyclear.can.canlist.CanListInfo
 import com.sungshin.recyclear.databinding.FragmentCanListBinding
 
 class CanListFragment : Fragment() {

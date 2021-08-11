@@ -1,6 +1,6 @@
-package com.sungshin.recyclear.metal.metalRV
+package com.sungshin.recyclear.plastic.plasticlist
 
-data class MetalListInfo(
+data class PlasticListInfo(
     val detect_image: String,
     val detect_date: String,
     val detect_percent: String

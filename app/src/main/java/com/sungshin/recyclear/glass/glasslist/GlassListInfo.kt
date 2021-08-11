@@ -1,4 +1,4 @@
-package com.sungshin.recyclear.glass.glassRV
+package com.sungshin.recyclear.glass.glasslist
 
 data class GlassListInfo(
     val detect_image: String,

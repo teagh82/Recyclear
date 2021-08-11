@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.sungshin.recyclear.R
 import com.sungshin.recyclear.databinding.FragmentMetalListBinding
-import com.sungshin.recyclear.metal.metalRV.MetalListAdapter
-import com.sungshin.recyclear.metal.metalRV.MetalListInfo
+import com.sungshin.recyclear.metal.metallist.MetalListAdapter
+import com.sungshin.recyclear.metal.metallist.MetalListInfo
 
-class MetalFragment : Fragment() {
+class MetalListFragment : Fragment() {
     private var _binding: FragmentMetalListBinding? = null
     private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val metalListAdapter: MetalListAdapter by lazy{ MetalListAdapter() }

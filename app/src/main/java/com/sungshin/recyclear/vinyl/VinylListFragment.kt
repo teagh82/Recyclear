@@ -1,17 +1,13 @@
 package com.sungshin.recyclear.vinyl
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.sungshin.recyclear.R
-import com.sungshin.recyclear.databinding.ActivityVinylBinding
 import com.sungshin.recyclear.databinding.FragmentVinylListBinding
-import com.sungshin.recyclear.vinyl.vinylRV.VinylListAdapter
-import com.sungshin.recyclear.vinyl.vinylRV.VinylListInfo
+import com.sungshin.recyclear.vinyl.vinyllist.VinylListAdapter
+import com.sungshin.recyclear.vinyl.vinyllist.VinylListInfo
 
 class VinylListFragment : Fragment() {
 

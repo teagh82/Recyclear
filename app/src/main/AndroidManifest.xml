@@ -11,7 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Recyclear">
-        <activity android:name=".CheckActivity"></activity>
+        <activity android:name=".plastic.PlasticDetailActivity"></activity>
+        <activity android:name=".paper.PaperDetailActivity" />
+        <activity android:name=".metal.MetalDetailActivity" />
+        <activity android:name=".glass.GlassDetailActivity" />
+        <activity android:name=".can.CanDetailActivity" />
+        <activity android:name=".check.CheckActivity" />
         <activity android:name=".vinyl.VinylDetailActivity" />
         <activity android:name=".glass.GlassActivity" />
         <activity android:name=".vinyl.VinylActivity" />

@@ -1,9 +1,8 @@
-package com.sungshin.recyclear.vinyl.vinylRV
+package com.sungshin.recyclear.vinyl.vinyllist
 
 import android.content.Intent
 import android.os.SystemClock
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView

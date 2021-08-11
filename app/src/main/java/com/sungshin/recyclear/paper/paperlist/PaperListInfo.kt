@@ -1,4 +1,4 @@
-package com.sungshin.recyclear.paper.paperRV
+package com.sungshin.recyclear.paper.paperlist
 
 data class PaperListInfo(
     val detect_image: String,

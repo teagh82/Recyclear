@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.sungshin.recyclear.R
 import com.sungshin.recyclear.databinding.FragmentPaperListBinding
-import com.sungshin.recyclear.paper.paperRV.PaperListAdapter
-import com.sungshin.recyclear.paper.paperRV.PaperListInfo
+import com.sungshin.recyclear.paper.paperlist.PaperListAdapter
+import com.sungshin.recyclear.paper.paperlist.PaperListInfo
 
-class PaperFragment : Fragment() {
+class PaperListFragment : Fragment() {
     private var _binding: FragmentPaperListBinding? = null
     private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val paperListAdapter: PaperListAdapter by lazy{ PaperListAdapter() }

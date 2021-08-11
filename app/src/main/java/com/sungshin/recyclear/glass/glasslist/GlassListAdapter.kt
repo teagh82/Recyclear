@@ -1,10 +1,14 @@
-package com.sungshin.recyclear.glass.glassRV
+package com.sungshin.recyclear.glass.glasslist
 
+import android.content.Intent
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sungshin.recyclear.databinding.ItemGlassListBinding
+import com.sungshin.recyclear.glass.GlassDetailActivity
 
 class GlassListAdapter : RecyclerView.Adapter<GlassListAdapter.GlassListViewHolder>() {
 
@@ -28,6 +32,8 @@ class GlassListAdapter : RecyclerView.Adapter<GlassListAdapter.GlassListViewHold
     class GlassListViewHolder(
         private val binding: ItemGlassListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        private var mLastClickTime : Long = 0
+
         fun onBind(glassListInfo: GlassListInfo) {
             Glide.with(itemView)
                 .load(glassListInfo.detect_image)
@@ -35,6 +41,19 @@ class GlassListAdapter : RecyclerView.Adapter<GlassListAdapter.GlassListViewHold
 
             binding.textviewGlassDate.text = glassListInfo.detect_date
             binding.textviewGlassPercent.text = glassListInfo.detect_percent
+
+            // item click event
+            itemView.setOnClickListener {
+                val intent = Intent(itemView?.context, GlassDetailActivity::class.java)
+
+                if(SystemClock.elapsedRealtime() - mLastClickTime > 1000){
+                    intent.putExtra("detect_date",glassListInfo.detect_date)
+                    intent.putExtra("detect_percent",glassListInfo.detect_percent)
+                    intent.putExtra("detect_image",glassListInfo.detect_image)
+
+                    ContextCompat.startActivity(itemView.context, intent, null)
+                }
+            }
         }
     }
 

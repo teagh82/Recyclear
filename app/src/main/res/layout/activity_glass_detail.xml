@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vinyl.VinylDetailActivity">
+    tools:context=".glass.GlassDetailActivity">
 
     <TextView
-        android:id="@+id/textview_vinyl_detail"
+        android:id="@+id/textview_glass_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -16,7 +16,7 @@
         android:background="@drawable/textview_radius_title"
         android:gravity="center"
         android:paddingVertical="10dp"
-        android:text="VINYL DETAIL"
+        android:text="GLASS DETAIL"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -25,17 +25,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageview_vinyl_detail"
+        android:id="@+id/imageview_glass_detail"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginTop="40dp"
-        android:src="@drawable/icon_vinyl"
+        android:src="@drawable/icon_glass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_vinyl_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_glass_detail" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintlayout_vinyl_detail"
+        android:id="@+id/constraintlayout_glass_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -47,10 +47,10 @@
         android:paddingVertical="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_vinyl_detail">
+        app:layout_constraintTop_toBottomOf="@+id/imageview_glass_detail">
 
         <TextView
-            android:id="@+id/textview_vinyl_date"
+            android:id="@+id/textview_glass_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -62,7 +62,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textview_vinyl_percent"
+            android:id="@+id/textview_glass_percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
@@ -74,7 +74,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_vinyl_date" />
+            app:layout_constraintTop_toBottomOf="@+id/textview_glass_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

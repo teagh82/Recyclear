@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.sungshin.recyclear.can.CanActivity
+import com.sungshin.recyclear.check.CheckActivity
 import com.sungshin.recyclear.databinding.ActivityMainBinding
 import com.sungshin.recyclear.glass.GlassActivity
 import com.sungshin.recyclear.metal.MetalActivity

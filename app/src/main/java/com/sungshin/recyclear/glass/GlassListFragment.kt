@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.sungshin.recyclear.R
 import com.sungshin.recyclear.databinding.FragmentGlassListBinding
-import com.sungshin.recyclear.glass.glassRV.GlassListAdapter
-import com.sungshin.recyclear.glass.glassRV.GlassListInfo
+import com.sungshin.recyclear.glass.glasslist.GlassListAdapter
+import com.sungshin.recyclear.glass.glasslist.GlassListInfo
 
 class GlassListFragment : Fragment() {
     private var _binding: FragmentGlassListBinding? = null
