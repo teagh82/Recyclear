@@ -35,6 +35,7 @@ class LabelingActivity : AppCompatActivity() {
     private fun onClickBtns() {
         binding.buttonLabelingEnd.setOnClickListener {
             finish()
+            // 서버로 좌표와 클래스 보내기 
             Log.d("button", "LABELING END")
         }
     }
