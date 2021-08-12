@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="labeling_class">
+        <item>클래스 선택</item>
         <item>can</item>
         <item>paper</item>
         <item>plastic</item>

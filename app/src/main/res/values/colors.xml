@@ -11,4 +11,5 @@
     <color name="blue">#253E70</color>
     <color name="yellow_back">#FBF7E9</color>
     <color name="green_title">#1B831B</color>
+    <color name="transparency">#00000000</color>
 </resources>

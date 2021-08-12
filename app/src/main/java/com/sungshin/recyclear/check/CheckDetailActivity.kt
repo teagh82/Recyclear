@@ -7,6 +7,8 @@ import android.util.Log
 import com.bumptech.glide.Glide
 import com.sungshin.recyclear.databinding.ActivityCheckDetailBinding
 
+var labelImg : String = ""
+
 class CheckDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheckDetailBinding
 
@@ -20,6 +22,8 @@ class CheckDetailActivity : AppCompatActivity() {
         Glide.with(this)
             .load(intent.getStringExtra("detect_image"))
             .into(binding.imageviewCheckDetail)
+
+        labelImg = intent.getStringExtra("detect_image").toString()
 
         binding.buttonCheckLabeling.setOnClickListener {
             val intent = Intent(this@CheckDetailActivity, LabelingActivity::class.java)
