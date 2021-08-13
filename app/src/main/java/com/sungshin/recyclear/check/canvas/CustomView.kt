@@ -10,6 +10,8 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
+var myShapes : MutableList<MyShape> = ArrayList()
+
 class CustomView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : View(context, attrs, defStyleAttr) {
 
@@ -17,8 +19,6 @@ class CustomView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     var startY = -1
     var stopX = -1
     var stopY = -1
-
-    var myShapes : MutableList<MyShape> = ArrayList()
 
     @SuppressLint("WrongCall")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -50,7 +50,17 @@ class CustomView @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
         }
 
+        var imageW = 998
+        var imageH = 998
+
+
+        var yoloX = (startX / imageW) + imageW/2
+        var yoloY = (startY / imageH) + imageH/2
+        var yoloW = imageW
+        var yoloH = imageH
+
         Log.d("labeling pos", "({$startX}, {$startY}), ({$stopX}, {$stopY})")
+        Log.d("labeling pos", "($yoloX $yoloY $yoloW $yoloH)")
 
         return true
     }

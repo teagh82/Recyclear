@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.sungshin.recyclear.R
+import com.sungshin.recyclear.check.canvas.myShapes
 import com.sungshin.recyclear.check.spinner.SpinnerAdapterLabel
 import com.sungshin.recyclear.check.spinner.SpinnerModel
 import com.sungshin.recyclear.databinding.ActivityLabelingBinding
@@ -35,8 +36,14 @@ class LabelingActivity : AppCompatActivity() {
     private fun onClickBtns() {
         binding.buttonLabelingEnd.setOnClickListener {
             finish()
-            // 서버로 좌표와 클래스 보내기 
+            // 서버로 좌표와 클래스 보내기
             Log.d("button", "LABELING END")
+        }
+
+        binding.buttonLabelingErase.setOnClickListener {
+            myShapes.clear()
+
+            Log.d("button", "LABELING ERASE")
         }
     }
 

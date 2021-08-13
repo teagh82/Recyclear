@@ -47,7 +47,8 @@
         <ImageView
             android:id="@+id/imageview_labeling_back"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
 
         <com.sungshin.recyclear.check.canvas.CustomView
             android:layout_width="match_parent"
@@ -73,4 +74,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintlayout_labeling_canvas" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_labeling_erase"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/yellow_back"
+        android:text="지우기"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_labeling" />
 </androidx.constraintlayout.widget.ConstraintLayout>
