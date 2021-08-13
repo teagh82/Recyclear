@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "874810506972",
+    "firebase_url": "https://recyclear-user-c81c3-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "recyclear-user-c81c3",
+    "storage_bucket": "recyclear-user-c81c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874810506972:android:1ed8f4c2c7bdd2353bbe19",
+        "android_client_info": {
+          "package_name": "com.sungshin.recyclearuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874810506972-lv5e2q4tdfdr5jpb707knrvvu5a5e98k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKqqjgS6kGdi3jT9FCJ9bMf7-Ws67QmDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874810506972-lv5e2q4tdfdr5jpb707knrvvu5a5e98k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

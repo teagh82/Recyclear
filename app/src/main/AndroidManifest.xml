@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sungshin.recyclear">
+    package="com.sungshin.recyclearuser">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,21 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Recyclear">
-        <activity android:name=".check.LabelingActivity"></activity>
-        <activity android:name=".check.CheckDetailActivity" />
-        <activity android:name=".plastic.PlasticDetailActivity" />
-        <activity android:name=".paper.PaperDetailActivity" />
-        <activity android:name=".metal.MetalDetailActivity" />
-        <activity android:name=".glass.GlassDetailActivity" />
-        <activity android:name=".can.CanDetailActivity" />
-        <activity android:name=".check.CheckActivity" />
-        <activity android:name=".vinyl.VinylDetailActivity" />
-        <activity android:name=".glass.GlassActivity" />
-        <activity android:name=".vinyl.VinylActivity" />
-        <activity android:name=".metal.MetalActivity" />
-        <activity android:name=".plastic.PetActivity" />
-        <activity android:name=".paper.PaperActivity" />
-        <activity android:name=".can.CanActivity" />
+        <activity android:name=".recycle.RecycleActivity"></activity>
+        <activity android:name=".point.PointActivity" />
+        <activity android:name=".news.NewsActivity" />
+        <activity android:name=".signin.SigninActivity" />
+        <activity android:name=".signup.SignupActivity" />
+        <activity android:name=".my.MyActivity" />
+        <activity android:name=".my.plastic.PlasticDetailActivity" />
+        <activity android:name=".my.paper.PaperDetailActivity" />
+        <activity android:name=".my.metal.MetalDetailActivity" />
+        <activity android:name=".my.glass.GlassDetailActivity" />
+        <activity android:name=".my.can.CanDetailActivity" />
+        <activity android:name=".my.vinyl.VinylDetailActivity" />
+        <activity android:name=".my.glass.GlassActivity" />
+        <activity android:name=".my.vinyl.VinylActivity" />
+        <activity android:name=".my.metal.MetalActivity" />
+        <activity android:name=".my.plastic.PetActivity" />
+        <activity android:name=".my.paper.PaperActivity" />
+        <activity android:name=".my.can.CanActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -34,86 +34,72 @@
         android:id="@+id/constraintlayout_main_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_main_title">
 
-        <ImageButton
-            android:id="@+id/button_main_pet"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/icon_plastic"
-            app:layout_constraintEnd_toStartOf="@+id/button_main_can"
-            app:layout_constraintHorizontal_bias="0.5"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_main_point"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/btn_radius_check"
+            android:text="포인트 전환하기"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/button_main_paper"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/icon_paper"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_main_can"
-            app:layout_constraintTop_toTopOf="@+id/button_main_can" />
-
-        <ImageButton
-            android:id="@+id/button_main_can"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/icon_can"
-            app:layout_constraintEnd_toStartOf="@+id/button_main_paper"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_main_pet"
-            app:layout_constraintTop_toTopOf="@+id/button_main_pet" />
-
-        <ImageButton
-            android:id="@+id/button_main_metal"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/icon_metal"
-            app:layout_constraintEnd_toStartOf="@+id/button_main_vinyl"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_main_pet" />
-
-        <ImageButton
-            android:id="@+id/button_main_vinyl"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/icon_vinyl"
-            app:layout_constraintEnd_toStartOf="@+id/button_main_glass"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_main_metal"
-            app:layout_constraintTop_toTopOf="@+id/button_main_metal" />
-
-        <ImageButton
-            android:id="@+id/button_main_glass"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/icon_glass"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_main_vinyl"
-            app:layout_constraintTop_toTopOf="@+id/button_main_metal" />
-
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_main_check"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:text="CHECK"
+            android:id="@+id/button_main_diary"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_radius_check"
+            android:text="내 수첩"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/btn_radius_check"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_main_vinyl" />
+            app:layout_constraintTop_toBottomOf="@+id/button_main_point" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_main_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_radius_check"
+            android:text="분리수거 상식"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_main_diary" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_main_news"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_radius_check"
+            android:text="환경소식"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_main_recycle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
