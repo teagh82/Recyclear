@@ -47,7 +47,6 @@ class SigninActivity : AppCompatActivity() {
                             "로그인 성공!", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@SigninActivity, MainActivity::class.java)
                         startActivity(intent)
-                        finish()
                     }
                     else {
                         Toast.makeText(applicationContext,

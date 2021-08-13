@@ -1,11 +1,14 @@
-package com.sungshin.recyclearuser.news.newslist
+package com.sungshin.recyclearuser.news
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sungshin.recyclearuser.databinding.FragmentNewsListBinding
+import com.sungshin.recyclearuser.news.newslist.NewsListAdapter
+import com.sungshin.recyclearuser.news.newslist.NewsListInfo
 
 class NewsListFragment : Fragment() {
     private var _binding: FragmentNewsListBinding? = null
@@ -26,7 +29,6 @@ class NewsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerviewNews.adapter = newsListAdapter
-
         // 서버 연결 x
         newsListAdapter.newsList.addAll(
             listOf<NewsListInfo>(
@@ -69,7 +71,7 @@ class NewsListFragment : Fragment() {
                     news_title = "자연·수행환경 파괴 장안사 인근 폐기물 매립장 반대",
                     news_date = "2021.08.13",
                     news_link = "https://www.beopbo.com/news/articleView.html?idxno=301995"
-                ),
+                )
             )
         )
         // 데이터 변경되었으니 업데이트해라

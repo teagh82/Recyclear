@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.sungshin.recyclearuser.R
 import com.sungshin.recyclearuser.databinding.ActivityNewsBinding
-import com.sungshin.recyclearuser.news.newslist.NewsListFragment
 
 class NewsActivity : AppCompatActivity() {
     private lateinit var binding : ActivityNewsBinding

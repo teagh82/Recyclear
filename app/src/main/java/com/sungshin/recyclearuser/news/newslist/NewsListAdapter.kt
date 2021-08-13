@@ -1,13 +1,16 @@
 package com.sungshin.recyclearuser.news.newslist
 
+import android.content.Intent
+import android.net.Uri
+import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.sungshin.recyclearuser.databinding.ItemNewsListBinding
 
-
-class NewsListAdapter  : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder>() {
+class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder>() {
 
     val newsList = mutableListOf<NewsListInfo>()
 
@@ -17,6 +20,7 @@ class NewsListAdapter  : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder
             parent,
             false
         )
+        Log.d("newss", "check")
         return NewsListViewHolder(binding)
     }
 
@@ -37,7 +41,11 @@ class NewsListAdapter  : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder
 
             // item click event
             itemView.setOnClickListener {
+                var intent = Intent(Intent.ACTION_VIEW, Uri.parse(newsListInfo.news_link))
 
+                if(SystemClock.elapsedRealtime() - mLastClickTime > 1000){
+                    ContextCompat.startActivity(itemView.context, intent, null)
+                }
             }
         }
     }
