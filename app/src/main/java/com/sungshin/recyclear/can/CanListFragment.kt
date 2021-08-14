@@ -1,20 +1,31 @@
 package com.sungshin.recyclear.can
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.sungshin.recyclear.can.canlist.CanListAdapter
 import com.sungshin.recyclear.can.canlist.CanListInfo
 import com.sungshin.recyclear.databinding.FragmentCanListBinding
+import com.sungshin.recyclear.utils.FirebaseUtil
 
 class CanListFragment : Fragment() {
     private var _binding: FragmentCanListBinding? = null
-    private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
-    private val canListAdapter: CanListAdapter by lazy{ CanListAdapter() }
+    private val binding get() = _binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
+    private val canListAdapter: CanListAdapter by lazy { CanListAdapter() }
 
-    var datas= mutableListOf<CanListInfo>()
+    var date_list = ArrayList<String>()
+    var img_list = ArrayList<String>()
+    var pred_list = ArrayList<String>()
+    val firebaseDB = FirebaseUtil()
+    val database = firebaseDB.database
+
+    var datas = mutableListOf<CanListInfo>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +40,83 @@ class CanListFragment : Fragment() {
 
         binding.recyclerviewCanImages.adapter = canListAdapter
 
+        loadDatas()
+
+
+    }
+
+    // 서버 연결
+    private fun loadDatas() {
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    if (userSnapshot.child("unchecked").hasChild("can")) {
+                        for (imageSnapshot in userSnapshot.child("unchecked")
+                            .child("can").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile =
+                                    imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    date_list.add(date)
+                                    img_list.add(imageFile)
+                                    pred_list.add(pred)
+                                }
+
+                                Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+
+                                // adapter에 데이터 추가
+                                var detectDate: String
+                                var detectImage: String
+                                var detectPercent: String
+
+                                for (i in 0 until date_list.size) {
+                                    detectDate = "20" + date_list[i].substring(0, 2) + "-" + date_list[i].substring(
+                                        2, 4) + "-" + date_list[i].substring(4, 6)
+                                    detectImage = img_list[i]
+                                    detectPercent = pred_list[i]
+
+
+                                    Log.d("FIREBASE", "date: $detectDate / img: $detectImage / pred: $detectPercent")
+
+                                    datas.apply {
+                                        add(
+                                            CanListInfo(
+                                                detect_image = detectImage,
+                                                detect_percent = detectPercent,
+                                                detect_date = detectDate
+                                            )
+                                        )
+                                    }
+
+                                    canListAdapter.canList.addAll(
+                                        datas
+                                    )
+
+                                    // 데이터 변경되었으니 업데이트해라
+                                    canListAdapter.notifyDataSetChanged()
+                                }
+                            } else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("FIREBASE", error.message)
+            }
+        }
+
+        val classRef = database.reference.child("User")
+        classRef.addValueEventListener(valueEventListener)
+
+    }
+
+    private fun loadDummy() {
         // 서버 연결 x
         canListAdapter.canList.addAll(
             listOf<CanListInfo>(
@@ -71,5 +159,43 @@ class CanListFragment : Fragment() {
         )
         // 데이터 변경되었으니 업데이트해라
         canListAdapter.notifyDataSetChanged()
+    }
+
+    // firebase에서 데이터 가져오기
+    private fun getData() {
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    if (userSnapshot.child("unchecked").hasChild("can")) {
+                        for (imageSnapshot in userSnapshot.child("unchecked")
+                            .child("can").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile =
+                                    imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    date_list.add(date)
+                                    img_list.add(imageFile)
+                                    pred_list.add(pred)
+                                }
+
+                                Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                            } else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("FIREBASE", error.message)
+            }
+        }
+
+        val classRef = database.reference.child("User")
+        classRef.addValueEventListener(valueEventListener)
     }
 }

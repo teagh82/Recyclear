@@ -1,10 +1,10 @@
-package com.sungshin.recyclear
+package com.sungshin.recyclear.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
+import com.sungshin.recyclear.R
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
-        },DURATION)
+        }, DURATION)
 //        Handler(Looper.getMainLooper()).postDelayed({ }, 2000)
 
     }

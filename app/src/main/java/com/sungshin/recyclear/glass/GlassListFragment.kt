@@ -1,18 +1,31 @@
 package com.sungshin.recyclear.glass
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.sungshin.recyclear.databinding.FragmentGlassListBinding
 import com.sungshin.recyclear.glass.glasslist.GlassListAdapter
 import com.sungshin.recyclear.glass.glasslist.GlassListInfo
+import com.sungshin.recyclear.utils.FirebaseUtil
 
 class GlassListFragment : Fragment() {
     private var _binding: FragmentGlassListBinding? = null
     private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val glassListAdapter: GlassListAdapter by lazy{GlassListAdapter()}
+
+    var date_list = ArrayList<String>()
+    var img_list = ArrayList<String>()
+    var pred_list = ArrayList<String>()
+    val firebaseDB = FirebaseUtil()
+    val database = firebaseDB.database
 
     var datas= mutableListOf<GlassListInfo>()
 
@@ -29,7 +42,80 @@ class GlassListFragment : Fragment() {
 
         binding.recyclerviewGlassImages.adapter = glassListAdapter
 
-        // 서버 연결 x
+        loadDatas()
+    }
+
+    private fun loadDatas(){
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    if (userSnapshot.child("unchecked").hasChild("glass")) {
+                        for (imageSnapshot in userSnapshot.child("unchecked").child("glass").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    date_list.add(date)
+                                    img_list.add(imageFile)
+                                    pred_list.add(pred)
+                                }
+
+                                Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+
+                                // adapter에 데이터 추가
+                                var detectDate: String
+                                var detectImage: String
+                                var detectPercent: String
+
+                                for (i in 0 until date_list.size) {
+                                    detectDate = "20" + date_list[i].substring(0, 2) + "-" + date_list[i].substring(
+                                        2, 4) + "-" + date_list[i].substring(4, 6)
+                                    detectImage = img_list[i]
+                                    detectPercent = pred_list[i]
+
+
+                                    Log.d("FIREBASE", "date: $detectDate / img: $detectImage / pred: $detectPercent")
+
+                                    datas.apply {
+                                        add(
+                                            GlassListInfo(
+                                                detect_image = detectImage,
+                                                detect_percent = detectPercent,
+                                                detect_date = detectDate
+                                            )
+                                        )
+                                    }
+
+                                    glassListAdapter.glassList.addAll(
+                                        datas
+                                    )
+
+                                    // 데이터 변경되었으니 업데이트해라
+                                    glassListAdapter.notifyDataSetChanged()
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("FIREBASE", error.message)
+            }
+        }
+
+        val classRef = database.reference.child("User")
+        classRef.addValueEventListener(valueEventListener)
+    }
+
+    // 서버 연결 x
+    private fun loadDummy(){
         glassListAdapter.glassList.addAll(
             listOf<GlassListInfo>(
                 GlassListInfo(

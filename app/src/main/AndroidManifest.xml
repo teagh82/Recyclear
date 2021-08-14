@@ -26,14 +26,14 @@
         <activity android:name=".plastic.PetActivity" />
         <activity android:name=".paper.PaperActivity" />
         <activity android:name=".can.CanActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".main.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".main.MainActivity" />
     </application>
 
 </manifest>
