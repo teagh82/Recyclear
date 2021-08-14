@@ -14,15 +14,18 @@ import com.google.firebase.ktx.Firebase
 import com.sungshin.recyclear.databinding.FragmentMetalListBinding
 import com.sungshin.recyclear.metal.metallist.MetalListAdapter
 import com.sungshin.recyclear.metal.metallist.MetalListInfo
+import com.sungshin.recyclear.utils.FirebaseUtil
 
 class MetalListFragment : Fragment() {
     private var _binding: FragmentMetalListBinding? = null
     private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val metalListAdapter: MetalListAdapter by lazy{ MetalListAdapter() }
+
     var date_list = ArrayList<String>()
     var img_list = ArrayList<String>()
     var pred_list = ArrayList<String>()
-    val database = Firebase.database("https://recyclear-user-c81c3-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    val firebaseDB = FirebaseUtil()
+    val database = firebaseDB.database
 
     var datas= mutableListOf<MetalListInfo>()
 
@@ -39,11 +42,15 @@ class MetalListFragment : Fragment() {
 
         binding.recyclerviewMetalImages.adapter = metalListAdapter
 
+        loadDatas()
+    }
+
+    private fun loadDatas(){
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
                     if (userSnapshot.child("unchecked").hasChild("metal")) {
-                        for (imageSnapshot in userSnapshot.child("unchecked").child("can").children) {
+                        for (imageSnapshot in userSnapshot.child("unchecked").child("metal").children) {
                             if (imageSnapshot.hasChildren()) {
                                 val date = imageSnapshot.child("date").getValue(String::class.java)
                                 val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
@@ -56,6 +63,38 @@ class MetalListFragment : Fragment() {
                                 }
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+
+                                // adapter에 데이터 추가
+                                var detectDate: String
+                                var detectImage: String
+                                var detectPercent: String
+
+                                for (i in 0 until date_list.size) {
+                                    detectDate = "20" + date_list[i].substring(0, 2) + "-" + date_list[i].substring(
+                                        2, 4) + "-" + date_list[i].substring(4, 6)
+                                    detectImage = img_list[i]
+                                    detectPercent = pred_list[i]
+
+
+                                    Log.d("FIREBASE", "date: $detectDate / img: $detectImage / pred: $detectPercent")
+
+                                    datas.apply {
+                                        add(
+                                            MetalListInfo(
+                                                detect_image = detectImage,
+                                                detect_percent = detectPercent,
+                                                detect_date = detectDate
+                                            )
+                                        )
+                                    }
+
+                                    metalListAdapter.metalList.addAll(
+                                        datas
+                                    )
+
+                                    // 데이터 변경되었으니 업데이트해라
+                                    metalListAdapter.notifyDataSetChanged()
+                                }
                             }
 
                             else {
@@ -73,7 +112,9 @@ class MetalListFragment : Fragment() {
 
         val classRef = database.reference.child("User")
         classRef.addValueEventListener(valueEventListener)
+    }
 
+    private fun loadDummy(){
         // 서버 연결 x
         metalListAdapter.metalList.addAll(
             listOf<MetalListInfo>(

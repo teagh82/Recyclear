@@ -1,4 +1,4 @@
-package com.sungshin.recyclear
+package com.sungshin.recyclear.main
 
 import android.content.Intent
 import android.os.Bundle
