@@ -58,9 +58,9 @@ class PlasticListFragment : Fragment() {
                                     datas.apply {
                                         add(
                                             PlasticListInfo(
-                                                detect_image = date,
-                                                detect_percent = imageFile,
-                                                detect_date = pred
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
                                             )
                                         )
                                     }
@@ -93,9 +93,9 @@ class PlasticListFragment : Fragment() {
                                     datas.apply {
                                         add(
                                             PlasticListInfo(
-                                                detect_image = date,
-                                                detect_percent = imageFile,
-                                                detect_date = pred
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
                                             )
                                         )
                                     }

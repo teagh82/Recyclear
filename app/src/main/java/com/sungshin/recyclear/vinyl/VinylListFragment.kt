@@ -58,9 +58,9 @@ class VinylListFragment : Fragment() {
                                     datas.apply {
                                         add(
                                             VinylListInfo(
-                                                detect_image = date,
-                                                detect_percent = imageFile,
-                                                detect_date = pred
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
                                             )
                                         )
                                     }
@@ -93,9 +93,9 @@ class VinylListFragment : Fragment() {
                                     datas.apply {
                                         add(
                                             VinylListInfo(
-                                                detect_image = date,
-                                                detect_percent = imageFile,
-                                                detect_date = pred
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
                                             )
                                         )
                                     }

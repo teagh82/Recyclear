@@ -56,9 +56,9 @@ class CanListFragment : Fragment() {
                                     datas.apply {
                                         add(
                                             CanListInfo(
-                                                detect_image = date,
-                                                detect_percent = imageFile,
-                                                detect_date = pred
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
                                             )
                                         )
                                     }
@@ -70,6 +70,7 @@ class CanListFragment : Fragment() {
                                     // 데이터 변경되었으니 업데이트해라
                                     canListAdapter.notifyDataSetChanged()
 
+                                    Log.d("FIREBASE", "unchecked")
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                                 }
                             }
@@ -91,9 +92,9 @@ class CanListFragment : Fragment() {
                                     datas.apply {
                                         add(
                                             CanListInfo(
-                                                detect_image = date,
-                                                detect_percent = imageFile,
-                                                detect_date = pred
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
                                             )
                                         )
                                     }
@@ -106,6 +107,7 @@ class CanListFragment : Fragment() {
                                     canListAdapter.notifyDataSetChanged()
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                    Log.d("FIREBASE", "checked")
                                 }
                             }
 
