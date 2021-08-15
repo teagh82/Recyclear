@@ -21,9 +21,6 @@ class CheckListFragment : Fragment() {
     private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val checkListAdapter: CheckListAdapter by lazy{ CheckListAdapter() }
 
-    var date_list = ArrayList<String>()
-    var img_list = ArrayList<String>()
-    var pred_list = ArrayList<String>()
     val firebaseDB = FirebaseUtil()
     val database = firebaseDB.database
 
@@ -48,66 +45,38 @@ class CheckListFragment : Fragment() {
     private fun loadDatas(){
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (userSnapshot in dataSnapshot.children) {
-                    for (classSnapshot in userSnapshot.child("checked").children) {
-                        for (imageSnapshot in classSnapshot.children) {
-                            if (imageSnapshot.hasChildren()) {
-                                val date = imageSnapshot.child("date").getValue(String::class.java)
-                                val imageFile =
-                                    imageSnapshot.child("imageFile").getValue(String::class.java)
-                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+                for (classSnapshot in dataSnapshot.children) {
+                    for (imageSnapshot in classSnapshot.children) {
+                        if (imageSnapshot.hasChildren()) {
+                            val date = imageSnapshot.child("date").getValue(String::class.java)
+                            val imageFile =
+                                imageSnapshot.child("origin").getValue(String::class.java)
+                            val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
-                                if (date != null && imageFile != null && pred != null) {
-                                    date_list.add(date)
-                                    img_list.add(imageFile)
-                                    pred_list.add(pred)
+                            if (date != null && imageFile != null && pred != null) {
+                                datas.apply {
+                                    add(
+                                        CheckListInfo(
+                                            detect_image = imageFile,
+                                            detect_percent = pred,
+                                            detect_date = date
+                                        )
+                                    )
                                 }
+
+                                checkListAdapter.checkList.addAll(
+                                    datas
+                                )
+
+                                // 데이터 변경되었으니 업데이트해라
+                                checkListAdapter.notifyDataSetChanged()
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
-
-                                // adapter에 데이터 추가
-                                var detectDate: String
-                                var detectImage: String
-                                var detectPercent: String
-
-                                for (i in 0 until date_list.size) {
-                                    detectDate = "20" + date_list[i].substring(
-                                        0,
-                                        2
-                                    ) + "-" + date_list[i].substring(
-                                        2, 4
-                                    ) + "-" + date_list[i].substring(4, 6)
-                                    detectImage = img_list[i]
-                                    detectPercent = pred_list[i]
-
-
-                                    Log.d(
-                                        "FIREBASE",
-                                        "date: $detectDate / img: $detectImage / pred: $detectPercent"
-                                    )
-
-                                    datas.apply {
-                                        add(
-                                            CheckListInfo(
-                                                detect_image = detectImage,
-                                                detect_percent = detectPercent,
-                                                detect_date = detectDate
-                                            )
-                                        )
-                                    }
-
-                                    checkListAdapter.checkList.addAll(
-                                        datas
-                                    )
-
-                                    // 데이터 변경되었으니 업데이트해라
-                                    checkListAdapter.notifyDataSetChanged()
-                                }
                             }
+                        }
 
-                            else {
-                                Log.d("FIREBASE", "not hasChildren")
-                            }
+                        else {
+                            Log.d("FIREBASE", "not hasChildren")
                         }
                     }
                 }
@@ -118,7 +87,7 @@ class CheckListFragment : Fragment() {
             }
         }
 
-        val classRef = database.reference.child("User")
+        val classRef = database.reference.child("Admin")
         classRef.addValueEventListener(valueEventListener)
     }
 

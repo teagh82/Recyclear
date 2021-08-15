@@ -19,9 +19,6 @@ class CanListFragment : Fragment() {
     private val binding get() = _binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val canListAdapter: CanListAdapter by lazy { CanListAdapter() }
 
-    var date_list = ArrayList<String>()
-    var img_list = ArrayList<String>()
-    var pred_list = ArrayList<String>()
     val firebaseDB = FirebaseUtil()
     val database = firebaseDB.database
 
@@ -41,52 +38,27 @@ class CanListFragment : Fragment() {
         binding.recyclerviewCanImages.adapter = canListAdapter
 
         loadDatas()
-
-
     }
 
     // 서버 연결
-    private fun loadDatas() {
+    private fun loadDatas(){
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
                     if (userSnapshot.child("unchecked").hasChild("can")) {
-                        for (imageSnapshot in userSnapshot.child("unchecked")
-                            .child("can").children) {
+                        for (imageSnapshot in userSnapshot.child("unchecked").child("can").children) {
                             if (imageSnapshot.hasChildren()) {
                                 val date = imageSnapshot.child("date").getValue(String::class.java)
-                                val imageFile =
-                                    imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
-                                    date_list.add(date)
-                                    img_list.add(imageFile)
-                                    pred_list.add(pred)
-                                }
-
-                                Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
-
-                                // adapter에 데이터 추가
-                                var detectDate: String
-                                var detectImage: String
-                                var detectPercent: String
-
-                                for (i in 0 until date_list.size) {
-                                    detectDate = "20" + date_list[i].substring(0, 2) + "-" + date_list[i].substring(
-                                        2, 4) + "-" + date_list[i].substring(4, 6)
-                                    detectImage = img_list[i]
-                                    detectPercent = pred_list[i]
-
-
-                                    Log.d("FIREBASE", "date: $detectDate / img: $detectImage / pred: $detectPercent")
-
                                     datas.apply {
                                         add(
                                             CanListInfo(
-                                                detect_image = detectImage,
-                                                detect_percent = detectPercent,
-                                                detect_date = detectDate
+                                                detect_image = date,
+                                                detect_percent = imageFile,
+                                                detect_date = pred
                                             )
                                         )
                                     }
@@ -97,8 +69,47 @@ class CanListFragment : Fragment() {
 
                                     // 데이터 변경되었으니 업데이트해라
                                     canListAdapter.notifyDataSetChanged()
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                                 }
-                            } else {
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("checked").hasChild("can")) {
+                        for (imageSnapshot in userSnapshot.child("checked").child("can").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    datas.apply {
+                                        add(
+                                            CanListInfo(
+                                                detect_image = date,
+                                                detect_percent = imageFile,
+                                                detect_date = pred
+                                            )
+                                        )
+                                    }
+
+                                    canListAdapter.canList.addAll(
+                                        datas
+                                    )
+
+                                    // 데이터 변경되었으니 업데이트해라
+                                    canListAdapter.notifyDataSetChanged()
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                            }
+
+                            else {
                                 Log.d("FIREBASE", "not hasChildren")
                             }
                         }
@@ -113,7 +124,6 @@ class CanListFragment : Fragment() {
 
         val classRef = database.reference.child("User")
         classRef.addValueEventListener(valueEventListener)
-
     }
 
     private fun loadDummy() {
@@ -159,43 +169,5 @@ class CanListFragment : Fragment() {
         )
         // 데이터 변경되었으니 업데이트해라
         canListAdapter.notifyDataSetChanged()
-    }
-
-    // firebase에서 데이터 가져오기
-    private fun getData() {
-        val valueEventListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (userSnapshot in dataSnapshot.children) {
-                    if (userSnapshot.child("unchecked").hasChild("can")) {
-                        for (imageSnapshot in userSnapshot.child("unchecked")
-                            .child("can").children) {
-                            if (imageSnapshot.hasChildren()) {
-                                val date = imageSnapshot.child("date").getValue(String::class.java)
-                                val imageFile =
-                                    imageSnapshot.child("imageFile").getValue(String::class.java)
-                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
-
-                                if (date != null && imageFile != null && pred != null) {
-                                    date_list.add(date)
-                                    img_list.add(imageFile)
-                                    pred_list.add(pred)
-                                }
-
-                                Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
-                            } else {
-                                Log.d("FIREBASE", "not hasChildren")
-                            }
-                        }
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("FIREBASE", error.message)
-            }
-        }
-
-        val classRef = database.reference.child("User")
-        classRef.addValueEventListener(valueEventListener)
     }
 }
