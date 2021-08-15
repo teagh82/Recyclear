@@ -8,7 +8,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.sungshin.recyclear.R
-import com.sungshin.recyclear.check.canvas.myShapes
+import com.sungshin.recyclear.check.canvas.*
 import com.sungshin.recyclear.check.spinner.SpinnerAdapterLabel
 import com.sungshin.recyclear.check.spinner.SpinnerModel
 import com.sungshin.recyclear.databinding.ActivityLabelingBinding
@@ -18,6 +18,8 @@ class LabelingActivity : AppCompatActivity() {
 
     private lateinit var spinnerAdapterLabel: SpinnerAdapterLabel
     private val listOfLabels = ArrayList<SpinnerModel>()
+
+    var labelName: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +37,12 @@ class LabelingActivity : AppCompatActivity() {
 
     private fun onClickBtns() {
         binding.buttonLabelingEnd.setOnClickListener {
-            finish()
-            // 서버로 좌표와 클래스 보내기
+            var yoloLabel = "$labelName $yoloX $yoloY $yoloW $yoloH"
+            var yoloImg = labelImg
+
+
             Log.d("button", "LABELING END")
+            finish()
         }
 
         binding.buttonLabelingErase.setOnClickListener {
@@ -63,9 +68,15 @@ class LabelingActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val label = binding.spinnerLabeling.getItemAtPosition(position) as SpinnerModel
                 if (!label.name.equals("클래스 선택")) {
-                    if(position != 0)
-                        Toast.makeText(this@LabelingActivity, "Selected: ${label.name}", Toast.LENGTH_SHORT).show()
+                    if(position != 0) {
+                        Toast.makeText(
+                            this@LabelingActivity,
+                            "Selected: ${label.name}",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
+                        labelName = position - 1
+                    }
                     // 맨 위부터 position 0번부터 순서대로 동작
                     when (position) {
                         0 -> {

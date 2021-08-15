@@ -11,6 +11,10 @@ import android.view.MotionEvent
 import android.view.View
 
 var myShapes : MutableList<MyShape> = ArrayList()
+var yoloX: Float = 0F
+var yoloY: Float = 0F
+var yoloW: Float = 0F
+var yoloH: Float = 0F
 
 
 class CustomView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -55,10 +59,13 @@ class CustomView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         var imageH = 998
 
 
-        var yoloX = (startX / imageW) + imageW/2
-        var yoloY = (startY / imageH) + imageH/2
-        var yoloW = imageW
-        var yoloH = imageH
+        var x = startX.toFloat() / imageW.toFloat()
+        var y = startY.toFloat() / imageH.toFloat()
+
+        yoloX = x + imageW.toFloat()/2
+        yoloY = y + imageH.toFloat()/2
+        yoloW = stopX.toFloat() - startX.toFloat() / imageW.toFloat()
+        yoloH = stopY.toFloat() - startY.toFloat() / imageH.toFloat()
 
         Log.d("labeling pos", "({$startX}, {$startY}), ({$stopX}, {$stopY})")
         Log.d("labeling pos", "($yoloX $yoloY $yoloW $yoloH)")
