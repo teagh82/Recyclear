@@ -22,9 +22,6 @@ class GlassListFragment : Fragment() {
     private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val glassListAdapter: GlassListAdapter by lazy{GlassListAdapter()}
 
-    var date_list = ArrayList<String>()
-    var img_list = ArrayList<String>()
-    var pred_list = ArrayList<String>()
     val firebaseDB = FirebaseUtil()
     val database = firebaseDB.database
 

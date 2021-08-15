@@ -1,23 +1,34 @@
 package com.sungshin.recyclear.check
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.sungshin.recyclear.R
 import com.sungshin.recyclear.check.canvas.*
 import com.sungshin.recyclear.check.spinner.SpinnerAdapterLabel
 import com.sungshin.recyclear.check.spinner.SpinnerModel
 import com.sungshin.recyclear.databinding.ActivityLabelingBinding
+import com.sungshin.recyclear.metal.MetalActivity
+import com.sungshin.recyclear.utils.FirebaseUtil
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class LabelingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLabelingBinding
 
     private lateinit var spinnerAdapterLabel: SpinnerAdapterLabel
     private val listOfLabels = ArrayList<SpinnerModel>()
+
+    val firebaseDB = FirebaseUtil()
+    val database = firebaseDB.database
 
     var labelName: Int = 0
 
@@ -40,15 +51,20 @@ class LabelingActivity : AppCompatActivity() {
             var yoloLabel = "$labelName $yoloX $yoloY $yoloW $yoloH"
             var yoloImg = labelImg
 
+            sendData(yoloLabel, yoloImg)
+            eraseData(labelImgName)
 
-            Log.d("button", "LABELING END")
-            finish()
+            Log.d("LABELING", "LABELING END")
+            Toast.makeText(this, "재학습 데이터를 서버에 전송했습니다.", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this, CheckActivity::class.java)
+            startActivity(intent)
         }
 
         binding.buttonLabelingErase.setOnClickListener {
             myShapes.clear()
 
-            Log.d("button", "LABELING ERASE")
+            Log.d("LABELING", "LABELING ERASE")
         }
     }
 
@@ -110,5 +126,34 @@ class LabelingActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    private fun sendData(yoloLabel:String, yoloImg:String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val img_name = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
+            Log.d("LABELING", img_name)
+
+            val yoloRefImg =
+                database.getReference("Yolo").child(img_name).child("origin")
+            yoloRefImg.setValue(yoloImg)
+
+            val yoloRefLabel =
+                database.getReference("Yolo").child(img_name).child("label")
+            yoloRefLabel.setValue(yoloLabel)
+        }
+
+        else {
+            Log.d("LABELING", "SDK Ver Error, Cannot Send YOLO Data")
+        }
+    }
+
+    private fun eraseData(yoloImgName:String) {
+        database.getReference("Admin").child(className).child(labelImgName).removeValue()
+            .addOnSuccessListener {
+                Log.d("LABELING", "eraseData success")
+            }
+            .addOnFailureListener {
+                Log.d("LABELING", "eraseData failed")
+            }
     }
 }

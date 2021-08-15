@@ -51,15 +51,19 @@ class CheckListFragment : Fragment() {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
                             val imageFile =
                                 imageSnapshot.child("origin").getValue(String::class.java)
+                            val imageFileName = imageSnapshot.key.toString()
                             val pred = imageSnapshot.child("pred").getValue(String::class.java)
+                            val className = classSnapshot.key.toString()
 
                             if (date != null && imageFile != null && pred != null) {
                                 datas.apply {
                                     add(
                                         CheckListInfo(
                                             detect_image = imageFile,
+                                            detect_image_name = imageFileName,
                                             detect_percent = pred,
-                                            detect_date = date
+                                            detect_date = date,
+                                            detect_class = className
                                         )
                                     )
                                 }

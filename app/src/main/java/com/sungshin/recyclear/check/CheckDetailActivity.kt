@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.sungshin.recyclear.databinding.ActivityCheckDetailBinding
 
 var labelImg : String = ""
+var labelImgName : String = ""
+var className : String = ""
 
 class CheckDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheckDetailBinding
@@ -24,6 +26,8 @@ class CheckDetailActivity : AppCompatActivity() {
             .into(binding.imageviewCheckDetail)
 
         labelImg = intent.getStringExtra("detect_image").toString()
+        labelImgName = intent.getStringExtra("detect_image_name").toString()
+        className = intent.getStringExtra("detect_class").toString()
 
         binding.buttonCheckLabeling.setOnClickListener {
             val intent = Intent(this@CheckDetailActivity, LabelingActivity::class.java)
