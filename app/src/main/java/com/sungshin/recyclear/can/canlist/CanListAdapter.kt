@@ -2,6 +2,7 @@ package com.sungshin.recyclear.can.canlist
 
 import android.content.Intent
 import android.os.SystemClock
+import android.util.Base64.decode
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -9,6 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sungshin.recyclear.can.CanDetailActivity
 import com.sungshin.recyclear.databinding.ItemCanListBinding
+import android.graphics.BitmapFactory
+import android.util.Base64
+import java.io.ByteArrayOutputStream
+
 
 class CanListAdapter : RecyclerView.Adapter<CanListAdapter.CanListViewHolder>() {
 

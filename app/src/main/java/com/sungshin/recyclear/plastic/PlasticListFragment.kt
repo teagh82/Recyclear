@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.sungshin.recyclear.can.canlist.CanListInfo
 import com.sungshin.recyclear.databinding.FragmentPlasticListBinding
 import com.sungshin.recyclear.plastic.plasticlist.PlasticListAdapter
 import com.sungshin.recyclear.plastic.plasticlist.PlasticListInfo
@@ -21,9 +22,6 @@ class PlasticListFragment : Fragment() {
     private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val plasticListAdapter: PlasticListAdapter by lazy{ PlasticListAdapter() }
 
-    var date_list = ArrayList<String>()
-    var img_list = ArrayList<String>()
-    var pred_list = ArrayList<String>()
     val firebaseDB = FirebaseUtil()
     val database = firebaseDB.database
 
@@ -57,33 +55,12 @@ class PlasticListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
-                                    date_list.add(date)
-                                    img_list.add(imageFile)
-                                    pred_list.add(pred)
-                                }
-
-                                Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
-
-                                // adapter에 데이터 추가
-                                var detectDate: String
-                                var detectImage: String
-                                var detectPercent: String
-
-                                for (i in 0 until date_list.size) {
-                                    detectDate = "20" + date_list[i].substring(0, 2) + "-" + date_list[i].substring(
-                                        2, 4) + "-" + date_list[i].substring(4, 6)
-                                    detectImage = img_list[i]
-                                    detectPercent = pred_list[i]
-
-
-                                    Log.d("FIREBASE", "date: $detectDate / img: $detectImage / pred: $detectPercent")
-
                                     datas.apply {
                                         add(
                                             PlasticListInfo(
-                                                detect_image = detectImage,
-                                                detect_percent = detectPercent,
-                                                detect_date = detectDate
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
                                             )
                                         )
                                     }
@@ -94,6 +71,113 @@ class PlasticListFragment : Fragment() {
 
                                     // 데이터 변경되었으니 업데이트해라
                                     plasticListAdapter.notifyDataSetChanged()
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("unchecked").hasChild("pen")) {
+                        for (imageSnapshot in userSnapshot.child("unchecked").child("pen").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    datas.apply {
+                                        add(
+                                            PlasticListInfo(
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
+                                            )
+                                        )
+                                    }
+
+                                    plasticListAdapter.plasticList.addAll(
+                                        datas
+                                    )
+
+                                    // 데이터 변경되었으니 업데이트해라
+                                    plasticListAdapter.notifyDataSetChanged()
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("checked").hasChild("pet")) {
+                        for (imageSnapshot in userSnapshot.child("checked").child("pet").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    datas.apply {
+                                        add(
+                                            PlasticListInfo(
+                                                detect_image = date,
+                                                detect_percent = imageFile,
+                                                detect_date = pred
+                                            )
+                                        )
+                                    }
+
+                                    plasticListAdapter.plasticList.addAll(
+                                        datas
+                                    )
+
+                                    // 데이터 변경되었으니 업데이트해라
+                                    plasticListAdapter.notifyDataSetChanged()
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("checked").hasChild("pen")) {
+                        for (imageSnapshot in userSnapshot.child("checked").child("pen").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    datas.apply {
+                                        add(
+                                            PlasticListInfo(
+                                                detect_image = date,
+                                                detect_percent = imageFile,
+                                                detect_date = pred
+                                            )
+                                        )
+                                    }
+
+                                    plasticListAdapter.plasticList.addAll(
+                                        datas
+                                    )
+
+                                    // 데이터 변경되었으니 업데이트해라
+                                    plasticListAdapter.notifyDataSetChanged()
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                                 }
                             }
 

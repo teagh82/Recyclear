@@ -22,9 +22,6 @@ class VinylListFragment : Fragment() {
     private val binding get() =_binding ?: error("View 를 참조하기 위해 binding 이 초기화 되지 않았습니다.")
     private val vinylListAdapter: VinylListAdapter by lazy{VinylListAdapter()}
 
-    var date_list = ArrayList<String>()
-    var img_list = ArrayList<String>()
-    var pred_list = ArrayList<String>()
     val firebaseDB = FirebaseUtil()
     val database = firebaseDB.database
 
@@ -42,6 +39,11 @@ class VinylListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerviewVinylImages.adapter = vinylListAdapter
+
+        loadDatas()
+    }
+
+    private fun loadDatas(){
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
@@ -53,33 +55,12 @@ class VinylListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
-                                    date_list.add(date)
-                                    img_list.add(imageFile)
-                                    pred_list.add(pred)
-                                }
-
-                                Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
-
-                                // adapter에 데이터 추가
-                                var detectDate: String
-                                var detectImage: String
-                                var detectPercent: String
-
-                                for (i in 0 until date_list.size) {
-                                    detectDate = "20" + date_list[i].substring(0, 2) + "-" + date_list[i].substring(
-                                        2, 4) + "-" + date_list[i].substring(4, 6)
-                                    detectImage = img_list[i]
-                                    detectPercent = pred_list[i]
-
-
-                                    Log.d("FIREBASE", "date: $detectDate / img: $detectImage / pred: $detectPercent")
-
                                     datas.apply {
                                         add(
                                             VinylListInfo(
-                                                detect_image = detectImage,
-                                                detect_percent = detectPercent,
-                                                detect_date = detectDate
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
                                             )
                                         )
                                     }
@@ -90,6 +71,43 @@ class VinylListFragment : Fragment() {
 
                                     // 데이터 변경되었으니 업데이트해라
                                     vinylListAdapter.notifyDataSetChanged()
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("checked").hasChild("vinyl")) {
+                        for (imageSnapshot in userSnapshot.child("checked").child("Vinyl").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    datas.apply {
+                                        add(
+                                            VinylListInfo(
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
+                                            )
+                                        )
+                                    }
+
+                                    vinylListAdapter.vinylList.addAll(
+                                        datas
+                                    )
+
+                                    // 데이터 변경되었으니 업데이트해라
+                                    vinylListAdapter.notifyDataSetChanged()
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                                 }
                             }
 
@@ -108,12 +126,6 @@ class VinylListFragment : Fragment() {
 
         val classRef = database.reference.child("User")
         classRef.addValueEventListener(valueEventListener)
-
-
-    }
-
-    private fun loadDatas(){
-
     }
 
     private fun loadDummy(){
