@@ -52,22 +52,24 @@ class PointListFragment : Fragment() {
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (classSnapshot in dataSnapshot.child("unchecked").children) {
-                    classSnapshot.key?.let { Log.d("FIREBASE", it) }
                     for (imageSnapshot in classSnapshot.children) {
-                        imageSnapshot.key?.let { Log.d("FIREBASE", it) }
                         if (imageSnapshot.hasChildren()) {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
                             val imageFile =
                                 imageSnapshot.child("image").getValue(String::class.java)
+                            val imageFileName = imageSnapshot.key.toString()
                             val label = classSnapshot.key
+                            val className = classSnapshot.key.toString()
 
                             if (date != null && imageFile != null && label != null) {
                                 datas.apply {
                                     add(
                                         PointListInfo(
                                             detect_image = imageFile,
+                                            detect_image_name = imageFileName,
                                             detect_label = label,
-                                            detect_date = date
+                                            detect_date = date,
+                                            detect_class = className
                                         )
                                     )
                                 }

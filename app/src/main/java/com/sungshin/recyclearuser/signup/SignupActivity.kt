@@ -81,7 +81,7 @@ class SignupActivity : AppCompatActivity() {
 
                             val myRefPoints =
                                 database.getReference("User").child(emailFront).child("points")
-                            myRefPoints.setValue(0)
+                            myRefPoints.setValue("0")
 
                             Toast.makeText(
                                 applicationContext,
