@@ -2,6 +2,7 @@ package com.sungshin.recyclearuser.point.pointlist
 
 import android.content.Intent
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat

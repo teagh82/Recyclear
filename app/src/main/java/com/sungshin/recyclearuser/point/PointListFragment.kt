@@ -58,7 +58,7 @@ class PointListFragment : Fragment() {
                         if (imageSnapshot.hasChildren()) {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
                             val imageFile =
-                                imageSnapshot.child("pred").getValue(String::class.java)
+                                imageSnapshot.child("image").getValue(String::class.java)
                             val label = classSnapshot.key
 
                             if (date != null && imageFile != null && label != null) {
@@ -72,13 +72,6 @@ class PointListFragment : Fragment() {
                                     )
                                 }
 
-                                pointListAdapter.pointList.addAll(
-                                    datas
-                                )
-
-                                // 데이터 변경되었으니 업데이트해라
-                                pointListAdapter.notifyDataSetChanged()
-
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / label: $label")
                             }
                         }
@@ -88,6 +81,13 @@ class PointListFragment : Fragment() {
                         }
                     }
                 }
+
+                pointListAdapter.pointList.addAll(
+                    datas
+                )
+
+                // 데이터 변경되었으니 업데이트해라
+                pointListAdapter.notifyDataSetChanged()
 
                 Log.d("FIREBASE", "Load Done")
             }

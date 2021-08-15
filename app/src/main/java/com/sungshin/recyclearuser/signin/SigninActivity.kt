@@ -66,6 +66,7 @@ class SigninActivity : AppCompatActivity() {
                             "로그인 성공!", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@SigninActivity, MainActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                     else {
                         Toast.makeText(applicationContext,
@@ -82,7 +83,7 @@ class SigninActivity : AppCompatActivity() {
         binding.textviewSigninGosignup.setOnClickListener {
             val intent = Intent(this@SigninActivity, SignupActivity::class.java)
             signUpActivityLauncher.launch(intent)
-            finish()
+//            finish()
         }
 
         binding.checkboxSigninId.setOnClickListener {

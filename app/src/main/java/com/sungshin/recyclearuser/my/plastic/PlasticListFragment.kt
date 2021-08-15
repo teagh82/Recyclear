@@ -54,25 +54,19 @@ class PlasticListFragment : Fragment() {
                         if (imageSnapshot.hasChildren()) {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
                             val imageFile =
-                                imageSnapshot.child("imageFile").getValue(String::class.java)
+                                imageSnapshot.child("image").getValue(String::class.java)
                             val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                             if (date != null && imageFile != null && pred != null) {
                                 datas.apply {
                                     add(
                                         PlasticListInfo(
-                                            detect_image = date,
-                                            detect_percent = imageFile,
-                                            detect_date = pred
+                                            detect_image = imageFile,
+                                            detect_percent = pred,
+                                            detect_date = date
                                         )
                                     )
                                 }
-                                plasticListAdapter.plasticList.addAll(
-                                    datas
-                                )
-
-                                // 데이터 변경되었으니 업데이트해라
-                                plasticListAdapter.notifyDataSetChanged()
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                             }
@@ -89,7 +83,7 @@ class PlasticListFragment : Fragment() {
                         .child("pet").children) {
                         if (imageSnapshot.hasChildren()) {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
-                            val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                            val imageFile = imageSnapshot.child("image").getValue(String::class.java)
                             val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                             if (date != null && imageFile != null && pred != null) {
@@ -102,12 +96,12 @@ class PlasticListFragment : Fragment() {
                                         )
                                     )
                                 }
-                                plasticListAdapter.plasticList.addAll(
-                                    datas
-                                )
-
-                                // 데이터 변경되었으니 업데이트해라
-                                plasticListAdapter.notifyDataSetChanged()
+//                                plasticListAdapter.plasticList.addAll(
+//                                    datas
+//                                )
+//
+//                                // 데이터 변경되었으니 업데이트해라
+//                                plasticListAdapter.notifyDataSetChanged()
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                             }
@@ -118,6 +112,14 @@ class PlasticListFragment : Fragment() {
                         }
                     }
                 }
+
+                plasticListAdapter.plasticList.addAll(
+                    datas
+                )
+
+                // 데이터 변경되었으니 업데이트해라
+                plasticListAdapter.notifyDataSetChanged()
+
             }
 
             override fun onCancelled(error: DatabaseError) {

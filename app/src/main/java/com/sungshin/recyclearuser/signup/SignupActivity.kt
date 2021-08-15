@@ -88,8 +88,8 @@ class SignupActivity : AppCompatActivity() {
                                 "회원가입에 성공하였습니다.\n로그인을 진행해주세요.", Toast.LENGTH_SHORT
                             ).show()
 
-                            startActivity(Intent(this, SigninActivity::class.java))
-                            finish()
+//                            startActivity(Intent(this, SigninActivity::class.java))
+//                            finish()
 
                             MyPref.prefs.setString("id", " ")
                             MyPref.prefs.setString("pw", " ")

@@ -54,25 +54,19 @@ class VinylListFragment : Fragment() {
                         .child("vinyl").children) {
                         if (imageSnapshot.hasChildren()) {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
-                            val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                            val imageFile = imageSnapshot.child("image").getValue(String::class.java)
                             val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                             if (date != null && imageFile != null && pred != null) {
                                 datas.apply {
                                     add(
                                         VinylListInfo(
-                                            detect_image = date,
-                                            detect_percent = imageFile,
-                                            detect_date = pred
+                                            detect_image = imageFile,
+                                            detect_percent = pred,
+                                            detect_date = date
                                         )
                                     )
                                 }
-                                vinylListAdapter.vinylList.addAll(
-                                    datas
-                                )
-
-                                // 데이터 변경되었으니 업데이트해라
-                                vinylListAdapter.notifyDataSetChanged()
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                             }
@@ -83,6 +77,12 @@ class VinylListFragment : Fragment() {
                         }
                     }
                 }
+                vinylListAdapter.vinylList.addAll(
+                    datas
+                )
+
+                // 데이터 변경되었으니 업데이트해라
+                vinylListAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
