@@ -2,11 +2,14 @@
 <resources>
     <string-array name="labeling_class">
         <item>클래스 선택</item>
-        <item>can</item>
-        <item>paper</item>
-        <item>plastic</item>
+        <item>pet</item>
+        <item>pen</item>
+        <item>mouse</item>
+        <item>paper box</item>
+        <item>key</item>
+        <item>clip</item>
         <item>vinyl</item>
-        <item>glass</item>
-        <item>metal</item>
+        <item>stick vinyl</item>
+        <item>can</item>
     </string-array>
 </resources>
