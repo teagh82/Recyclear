@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sungshin.recyclearuser.databinding.ActivitySignupBinding
+import com.sungshin.recyclearuser.signin.SigninActivity
+import com.sungshin.recyclearuser.utils.MyPref
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -82,10 +85,14 @@ class SignupActivity : AppCompatActivity() {
 
                             Toast.makeText(
                                 applicationContext,
-                                "회원가입에 성공하였습니다.\n로그인을 진행해주세요", Toast.LENGTH_SHORT
+                                "회원가입에 성공하였습니다.\n로그인을 진행해주세요.", Toast.LENGTH_SHORT
                             ).show()
-//                            startActivity(Intent(this, SigninActivity::class.java))
-//                            finish()
+
+                            startActivity(Intent(this, SigninActivity::class.java))
+                            finish()
+
+                            MyPref.prefs.setString("id", " ")
+                            MyPref.prefs.setString("pw", " ")
 
                             val intent = Intent()
                             intent.putExtra("name", name)
@@ -97,7 +104,7 @@ class SignupActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "회원가입 실패!", Toast.LENGTH_SHORT
+                                "이미 가입된 아이디입니다.", Toast.LENGTH_SHORT
                             ).show()
                         }
                     }

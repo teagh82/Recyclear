@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_recyclear_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Recyclear">
+        android:theme="@style/Theme.Recyclear"
+        android:name=".utils.MyPref">
         <activity android:name=".recycle.RecycleActivity"></activity>
         <activity android:name=".point.PointActivity" />
         <activity android:name=".news.NewsActivity" />

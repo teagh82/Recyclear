@@ -1,20 +1,26 @@
 package com.sungshin.recyclearuser.signin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.sungshin.recyclearuser.MainActivity
 import com.sungshin.recyclearuser.databinding.ActivitySigninBinding
 import com.sungshin.recyclearuser.signup.SignupActivity
+import com.sungshin.recyclearuser.utils.MyPref
 
 class SigninActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySigninBinding
     private lateinit var auth: FirebaseAuth
+
+    var isIDcheckBoxChecked = false
+    var isPWcheckBoxChecked = false
 
     private val signUpActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -33,6 +39,19 @@ class SigninActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         buttonEvents()
+
+        val saveIDdata = MyPref.prefs.getString("id", " ")
+        val savePWdata = MyPref.prefs.getString("pw", " ")
+
+        if (saveIDdata != " ") {
+            binding.edittextSigninId.setText(saveIDdata)
+            binding.checkboxSigninId.setChecked(true)
+        }
+
+        if (savePWdata != " ") {
+            binding.edittextSigninPw.setText(savePWdata)
+            binding.checkboxSigninPw.setChecked(true)
+        }
     }
 
     private fun buttonEvents(){
@@ -66,16 +85,68 @@ class SigninActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.checkboxSigninId.setOnClickListener{
-            val email = binding.edittextSigninId.text.toString()
-            val intent = Intent()
-            intent.putExtra("signin_id", email)
+        binding.checkboxSigninId.setOnClickListener {
+            val pref = this.getPreferences(0)
+            val prefEditor = pref.edit()
+            val saveIDdata = pref.getString("prefId", "")
+
+            if (saveIDdata != null) {
+                Log.e("checkbox id", saveIDdata)
+            }
+
+            isIDcheckBoxChecked = false
+
+            if (binding.checkboxSigninId.isChecked) {
+                isIDcheckBoxChecked = true
+                MyPref.prefs.setString("id", binding.edittextSigninId.text.toString())
+            }
+
+            else {
+                if (isPWcheckBoxChecked) {
+                    Log.e("check", "id x pw o")
+                    Toast.makeText(this, "비밀번호 저장을 먼저 해제해주세요", Toast.LENGTH_SHORT).show()
+                    isIDcheckBoxChecked = true
+                    binding.checkboxSigninId.setChecked(true)
+                }
+
+                else {
+                    isIDcheckBoxChecked = false
+                    MyPref.prefs.setString("id", " ")
+                }
+            }
         }
 
-        binding.checkboxSigninPw.setOnClickListener{
-            val pw = binding.edittextSigninPw.text.toString()
-            val intent = Intent()
-            intent.putExtra("signin_pw", pw)
+        binding.checkboxSigninPw.setOnClickListener {
+            val pref = this.getPreferences(0)
+            val prefEditor = pref.edit()
+            val savePWdata = pref.getString("prefPw", " ")
+            isPWcheckBoxChecked = false
+            if (savePWdata != null) {
+                Log.e("check pw", savePWdata)
+            }
+
+            else {
+                Log.e("check pw", "null")
+            }
+
+            if (binding.checkboxSigninPw.isChecked) {
+                if (!isIDcheckBoxChecked) {
+                    Log.e("check", "id x pw o")
+                    Toast.makeText(this, "아이디 저장을 먼저 선택해주세요", Toast.LENGTH_SHORT).show()
+                    isPWcheckBoxChecked = false
+                    binding.checkboxSigninPw.setChecked(false)
+                }
+
+                else {
+                    isPWcheckBoxChecked = true
+                    MyPref.prefs.setString("pw", binding.edittextSigninPw.text.toString())
+                }
+            }
+
+            else {
+                isPWcheckBoxChecked = false
+                MyPref.prefs.setString("pw", " ")
+            }
         }
     }
 }
