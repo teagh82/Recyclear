@@ -40,8 +40,8 @@ class SigninActivity : AppCompatActivity() {
         auth = Firebase.auth
         buttonEvents()
 
-        val saveIDdata = MyPref.prefs.getString("id", " ")
-        val savePWdata = MyPref.prefs.getString("pw", " ")
+        val saveIDdata = MyPref.prefs.getString("save_id", " ")
+        val savePWdata = MyPref.prefs.getString("save_pw", " ")
 
         if (saveIDdata != " ") {
             binding.edittextSigninId.setText(saveIDdata)
@@ -64,6 +64,7 @@ class SigninActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Toast.makeText(applicationContext,
                             "로그인 성공!", Toast.LENGTH_SHORT).show()
+                        MyPref.prefs.setString("id", binding.edittextSigninId.text.toString())
                         val intent = Intent(this@SigninActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -83,23 +84,14 @@ class SigninActivity : AppCompatActivity() {
         binding.textviewSigninGosignup.setOnClickListener {
             val intent = Intent(this@SigninActivity, SignupActivity::class.java)
             signUpActivityLauncher.launch(intent)
-//            finish()
         }
 
         binding.checkboxSigninId.setOnClickListener {
-            val pref = this.getPreferences(0)
-            val prefEditor = pref.edit()
-            val saveIDdata = pref.getString("prefId", "")
-
-            if (saveIDdata != null) {
-                Log.e("checkbox id", saveIDdata)
-            }
-
             isIDcheckBoxChecked = false
 
             if (binding.checkboxSigninId.isChecked) {
                 isIDcheckBoxChecked = true
-                MyPref.prefs.setString("id", binding.edittextSigninId.text.toString())
+                MyPref.prefs.setString("save_id", binding.edittextSigninId.text.toString())
             }
 
             else {
@@ -112,23 +104,13 @@ class SigninActivity : AppCompatActivity() {
 
                 else {
                     isIDcheckBoxChecked = false
-                    MyPref.prefs.setString("id", " ")
+                    MyPref.prefs.setString("save_id", " ")
                 }
             }
         }
 
         binding.checkboxSigninPw.setOnClickListener {
-            val pref = this.getPreferences(0)
-            val prefEditor = pref.edit()
-            val savePWdata = pref.getString("prefPw", " ")
             isPWcheckBoxChecked = false
-            if (savePWdata != null) {
-                Log.e("check pw", savePWdata)
-            }
-
-            else {
-                Log.e("check pw", "null")
-            }
 
             if (binding.checkboxSigninPw.isChecked) {
                 if (!isIDcheckBoxChecked) {
@@ -140,13 +122,13 @@ class SigninActivity : AppCompatActivity() {
 
                 else {
                     isPWcheckBoxChecked = true
-                    MyPref.prefs.setString("pw", binding.edittextSigninPw.text.toString())
+                    MyPref.prefs.setString("save_pw", binding.edittextSigninPw.text.toString())
                 }
             }
 
             else {
                 isPWcheckBoxChecked = false
-                MyPref.prefs.setString("pw", " ")
+                MyPref.prefs.setString("save_pw", " ")
             }
         }
     }
