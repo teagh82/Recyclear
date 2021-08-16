@@ -25,6 +25,10 @@ class MetalListFragment : Fragment() {
     val database = firebaseDB.database
 
     var datas= mutableListOf<MetalListInfo>()
+    var hasMetal: Boolean = false
+    var hasMetal2: Boolean = false
+    var hasMetal3: Boolean = false
+    var hasMetal4: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +58,8 @@ class MetalListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasMetal = true
+
                                     datas.apply {
                                         add(
                                             MetalListInfo(
@@ -65,6 +71,9 @@ class MetalListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasMetal = false
                                 }
                             }
 
@@ -82,6 +91,8 @@ class MetalListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasMetal2 = true
+
                                     datas.apply {
                                         add(
                                             MetalListInfo(
@@ -93,6 +104,9 @@ class MetalListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasMetal2 = false
                                 }
                             }
 
@@ -110,6 +124,8 @@ class MetalListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasMetal3 = true
+
                                     datas.apply {
                                         add(
                                             MetalListInfo(
@@ -121,6 +137,9 @@ class MetalListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasMetal3 = false
                                 }
                             }
 
@@ -138,6 +157,8 @@ class MetalListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasMetal4 = true
+
                                     datas.apply {
                                         add(
                                             MetalListInfo(
@@ -149,6 +170,9 @@ class MetalListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasMetal4 = false
                                 }
                             }
 
@@ -164,6 +188,15 @@ class MetalListFragment : Fragment() {
                 )
 
                 metalListAdapter.notifyDataSetChanged()
+
+                if(hasMetal || hasMetal2 || hasMetal3 || hasMetal4){
+                    binding.constraintlayoutMetalRecycler.visibility = View.VISIBLE
+                    binding.constraintlayoutMetalEmpty.visibility = View.GONE
+                }
+                else if(!hasMetal && !hasMetal2 && !hasMetal3 && !hasMetal4){
+                    binding.constraintlayoutMetalRecycler.visibility = View.GONE
+                    binding.constraintlayoutMetalEmpty.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

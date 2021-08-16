@@ -27,6 +27,14 @@ class PlasticListFragment : Fragment() {
 
     var datas= mutableListOf<PlasticListInfo>()
 
+    var hasPet: Boolean = false
+    var hasPet2: Boolean = false
+    var hasPet3: Boolean = false
+    var hasPet4: Boolean = false
+    var hasPet5: Boolean = false
+    var hasPet6: Boolean = false
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +63,8 @@ class PlasticListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasPet = true
+
                                     datas.apply {
                                         add(
                                             PlasticListInfo(
@@ -66,6 +76,9 @@ class PlasticListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasPet = false
                                 }
                             }
 
@@ -83,6 +96,7 @@ class PlasticListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasPet2 = true
                                     datas.apply {
                                         add(
                                             PlasticListInfo(
@@ -94,6 +108,42 @@ class PlasticListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasPet2 = false
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("unchecked").hasChild("mouse")) {
+                        for (imageSnapshot in userSnapshot.child("unchecked").child("mouse").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("image").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    hasPet5 = true
+
+                                    datas.apply {
+                                        add(
+                                            PlasticListInfo(
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
+                                            )
+                                        )
+                                    }
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasPet5 = false
                                 }
                             }
 
@@ -111,6 +161,8 @@ class PlasticListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasPet3 = true
+
                                     datas.apply {
                                         add(
                                             PlasticListInfo(
@@ -122,6 +174,9 @@ class PlasticListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasPet3 = false
                                 }
                             }
 
@@ -139,6 +194,8 @@ class PlasticListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasPet4 = true
+
                                     datas.apply {
                                         add(
                                             PlasticListInfo(
@@ -150,6 +207,42 @@ class PlasticListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasPet4 = false
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("checked").hasChild("mouse")) {
+                        for (imageSnapshot in userSnapshot.child("checked").child("mouse").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    hasPet6 = true
+
+                                    datas.apply {
+                                        add(
+                                            PlasticListInfo(
+                                                detect_image = date,
+                                                detect_percent = imageFile,
+                                                detect_date = pred
+                                            )
+                                        )
+                                    }
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasPet6 = false
                                 }
                             }
 
@@ -166,6 +259,15 @@ class PlasticListFragment : Fragment() {
 
                 // 데이터 변경되었으니 업데이트해라
                 plasticListAdapter.notifyDataSetChanged()
+
+                if(hasPet || hasPet2 || hasPet3 || hasPet4 || hasPet5 || hasPet6){
+                    binding.constraintlayoutPlasticRecycler.visibility = View.VISIBLE
+                    binding.constraintlayoutPlasticEmpty.visibility = View.GONE
+                }
+                else if(!hasPet && !hasPet2 && !hasPet3 && !hasPet4 && !hasPet5 && !hasPet6){
+                    binding.constraintlayoutPlasticRecycler.visibility = View.GONE
+                    binding.constraintlayoutPlasticEmpty.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

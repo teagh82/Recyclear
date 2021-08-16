@@ -27,6 +27,9 @@ class GlassListFragment : Fragment() {
 
     var datas= mutableListOf<GlassListInfo>()
 
+    var hasGlass: Boolean = false
+    var hasGlass2: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +58,8 @@ class GlassListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasGlass = true
+
                                     datas.apply {
                                         add(
                                             GlassListInfo(
@@ -66,6 +71,9 @@ class GlassListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasGlass = false
                                 }
                             }
 
@@ -83,6 +91,8 @@ class GlassListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasGlass2 = true
+
                                     datas.apply {
                                         add(
                                             GlassListInfo(
@@ -94,6 +104,9 @@ class GlassListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasGlass2 = false
                                 }
                             }
 
@@ -109,6 +122,15 @@ class GlassListFragment : Fragment() {
                 )
 
                 glassListAdapter.notifyDataSetChanged()
+
+                if(hasGlass || hasGlass2){
+                    binding.constraintlayoutGlassRecycler.visibility = View.VISIBLE
+                    binding.constraintlayoutGlassEmpty.visibility = View.GONE
+                }
+                else if(!hasGlass && !hasGlass2){
+                    binding.constraintlayoutGlassRecycler.visibility = View.GONE
+                    binding.constraintlayoutGlassEmpty.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

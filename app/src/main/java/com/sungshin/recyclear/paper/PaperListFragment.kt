@@ -26,6 +26,9 @@ class PaperListFragment : Fragment() {
 
     var datas= mutableListOf<PaperListInfo>()
 
+    var hasPaper: Boolean = false
+    var hasPaper2: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,14 +49,16 @@ class PaperListFragment : Fragment() {
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
-                    if (userSnapshot.child("unchecked").hasChild("paper")) {
-                        for (imageSnapshot in userSnapshot.child("unchecked").child("paper").children) {
+                    if (userSnapshot.child("unchecked").hasChild("paper box")) {
+                        for (imageSnapshot in userSnapshot.child("unchecked").child("paper box").children) {
                             if (imageSnapshot.hasChildren()) {
                                 val date = imageSnapshot.child("date").getValue(String::class.java)
                                 val imageFile = imageSnapshot.child("image").getValue(String::class.java)
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasPaper = true
+
                                     datas.apply {
                                         add(
                                             PaperListInfo(
@@ -66,6 +71,9 @@ class PaperListFragment : Fragment() {
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                                 }
+                                else{
+                                    hasPaper = false
+                                }
                             }
 
                             else {
@@ -74,14 +82,16 @@ class PaperListFragment : Fragment() {
                         }
                     }
 
-                    if (userSnapshot.child("checked").hasChild("paper")) {
-                        for (imageSnapshot in userSnapshot.child("checked").child("paper").children) {
+                    if (userSnapshot.child("checked").hasChild("paper box")) {
+                        for (imageSnapshot in userSnapshot.child("checked").child("paper box").children) {
                             if (imageSnapshot.hasChildren()) {
                                 val date = imageSnapshot.child("date").getValue(String::class.java)
                                 val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasPaper2 = true
+
                                     datas.apply {
                                         add(
                                             PaperListInfo(
@@ -93,6 +103,9 @@ class PaperListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasPaper2 = false
                                 }
                             }
 
@@ -108,6 +121,15 @@ class PaperListFragment : Fragment() {
                 )
 
                 paperListAdapter.notifyDataSetChanged()
+
+                if(hasPaper || hasPaper2){
+                    binding.constraintlayoutPaperRecycler.visibility = View.VISIBLE
+                    binding.constraintlayoutPaperEmpty.visibility = View.GONE
+                }
+                else if(!hasPaper && !hasPaper2){
+                    binding.constraintlayoutPaperRecycler.visibility = View.GONE
+                    binding.constraintlayoutPaperEmpty.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
