@@ -5,12 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.sungshin.recyclearuser.databinding.ActivityMainBinding
 import com.sungshin.recyclearuser.my.MyActivity
 import com.sungshin.recyclearuser.news.NewsActivity
 import com.sungshin.recyclearuser.point.PointActivity
 import com.sungshin.recyclearuser.recycle.RecycleActivity
+import com.sungshin.recyclearuser.utils.FirebaseUtil
 import com.sungshin.recyclearuser.utils.MyPref
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.Socket
 
@@ -18,6 +24,9 @@ import java.net.Socket
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private var backKeyPressedTime: Long = 0
+
+    val firebaseDB = FirebaseUtil()
+    val database = firebaseDB.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +58,10 @@ class MainActivity : AppCompatActivity() {
             Log.d("button", "NEWS")
         }
         binding.buttonMainDetect.setOnClickListener{
-            val thread = ClientThread()
-            thread.start()
-
+            val requestRef = database.getReference("Request")
+            val saveIDdata = MyPref.prefs.getString("id", " ").split(".com")[0]
+            requestRef.setValue(saveIDdata)
+            Log.d("REQUEST", requestRef.get().toString())
             Toast.makeText(this, "분류를 시작합니다.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -64,29 +74,6 @@ class MainActivity : AppCompatActivity() {
 
         else {
             finish()
-        }
-    }
-
-    protected class ClientThread : Thread() {
-        override fun run() {
-            val host = "3.38.63.94"
-            val port = 9724
-            try {
-                val saveIDdata = MyPref.prefs.getString("id", " ").split(".com")[0]
-                val socket = Socket(host, port)
-                Log.e("sck", "suc")
-
-                val out = PrintWriter(socket.getOutputStream(), true)
-                out.print(saveIDdata)
-                out.flush()
-
-                socket.close()
-            }
-
-            catch (e: Exception) {
-                Log.e("sck", "fail")
-                e.printStackTrace()
-            }
         }
     }
 }
