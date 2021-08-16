@@ -50,7 +50,7 @@ class MetalListFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.child("checked").hasChild("clip")) {
                     for (imageSnapshot in dataSnapshot.child("checked")
-                        .child("glass").children) {
+                        .child("clip").children) {
                         if (imageSnapshot.hasChildren()) {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
                             val imageFile = imageSnapshot.child("image").getValue(String::class.java)
@@ -79,7 +79,7 @@ class MetalListFragment : Fragment() {
 
                 if (dataSnapshot.child("checked").hasChild("key")) {
                     for (imageSnapshot in dataSnapshot.child("checked")
-                        .child("glass").children) {
+                        .child("key").children) {
                         if (imageSnapshot.hasChildren()) {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
                             val imageFile = imageSnapshot.child("image").getValue(String::class.java)
@@ -95,12 +95,6 @@ class MetalListFragment : Fragment() {
                                         )
                                     )
                                 }
-//                                metalListAdapter.metalList.addAll(
-//                                    datas
-//                                )
-//
-//                                // 데이터 변경되었으니 업데이트해라
-//                                metalListAdapter.notifyDataSetChanged()
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                             }
