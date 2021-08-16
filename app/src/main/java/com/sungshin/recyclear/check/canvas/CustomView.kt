@@ -57,10 +57,20 @@ class CustomView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         var imageW = 998.0
         var imageH = 998.0
 
-        yoloX = (startX + imageW/2) / imageW
-        yoloY = (startY + imageH/2) / imageH
         yoloW = (stopX - startX) / imageW
         yoloH = (stopY - startY) / imageH
+        yoloX = (startX / imageW) + (yoloW / 2)
+        yoloY = (startY / imageH) + (yoloH / 2)
+
+        if (stopX < startX) {
+            yoloW = (startX - stopX) / imageW
+            yoloX = (stopX / imageW) + (yoloW / 2)
+        }
+
+        if (stopY < startY) {
+            yoloH = (startY - stopY) / imageW
+            yoloY = (stopY / imageW) + (yoloH / 2)
+        }
 
         Log.d("labeling pos", "({$startX}, {$startY}), ({$stopX}, {$stopY})")
         Log.d("labeling pos", "($yoloX $yoloY $yoloW $yoloH)")

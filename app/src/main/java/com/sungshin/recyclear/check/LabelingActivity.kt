@@ -52,7 +52,7 @@ class LabelingActivity : AppCompatActivity() {
             var yoloImg = labelImg
 
             sendData(yoloLabel, yoloImg)
-            eraseData(labelImgName)
+            //eraseData(labelImgName)
 
             Log.d("LABELING", "LABELING END")
             Toast.makeText(this, "재학습 데이터를 서버에 전송했습니다.", Toast.LENGTH_SHORT).show()
