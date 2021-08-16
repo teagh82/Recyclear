@@ -71,6 +71,8 @@ class CheckListAdapter : RecyclerView.Adapter<CheckListAdapter.CheckListViewHold
                     intent.putExtra("detect_date",checkListInfo.detect_date)
                     intent.putExtra("detect_percent",checkListInfo.detect_percent)
                     intent.putExtra("detect_image",checkListInfo.detect_image)
+                    intent.putExtra("detect_image_name",checkListInfo.detect_image_name)
+                    intent.putExtra("detect_class",checkListInfo.detect_class)
 
                     ContextCompat.startActivity(itemView.context, intent, null)
                 }

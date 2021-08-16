@@ -26,6 +26,8 @@ class CheckListFragment : Fragment() {
 
     var datas= mutableListOf<CheckListInfo>()
 
+    var hasCheck: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,20 +53,29 @@ class CheckListFragment : Fragment() {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
                             val imageFile =
                                 imageSnapshot.child("origin").getValue(String::class.java)
+                            val imageFileName = imageSnapshot.key.toString()
                             val pred = imageSnapshot.child("pred").getValue(String::class.java)
+                            val className = classSnapshot.key.toString()
 
                             if (date != null && imageFile != null && pred != null) {
+                                hasCheck = true
+
                                 datas.apply {
                                     add(
                                         CheckListInfo(
                                             detect_image = imageFile,
+                                            detect_image_name = imageFileName,
                                             detect_percent = pred,
-                                            detect_date = date
+                                            detect_date = date,
+                                            detect_class = className
                                         )
                                     )
                                 }
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                            }
+                            else{
+                                hasCheck = false
                             }
                         }
 
@@ -79,6 +90,15 @@ class CheckListFragment : Fragment() {
                 )
 
                 checkListAdapter.notifyDataSetChanged()
+
+                if(hasCheck){
+                    binding.constraintlayoutCheckRecycler.visibility = View.VISIBLE
+                    binding.constraintlayoutCheckEmpty.visibility = View.GONE
+                }
+                else if(!hasCheck){
+                    binding.constraintlayoutCheckRecycler.visibility = View.GONE
+                    binding.constraintlayoutCheckEmpty.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

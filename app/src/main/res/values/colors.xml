@@ -13,4 +13,5 @@
     <color name="green_title">#1B831B</color>
     <color name="transparency">#00000000</color>
     <color name="blue_back">#C4E5FF</color>
+    <color name="gray">#999999</color>
 </resources>

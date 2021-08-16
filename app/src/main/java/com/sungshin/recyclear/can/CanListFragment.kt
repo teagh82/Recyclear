@@ -24,6 +24,9 @@ class CanListFragment : Fragment() {
 
     var datas = mutableListOf<CanListInfo>()
 
+    var hasCan: Boolean = false
+    var hasCan2: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +58,8 @@ class CanListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasCan = true
+
                                     datas.apply {
                                         add(
                                             CanListInfo(
@@ -67,6 +72,9 @@ class CanListFragment : Fragment() {
 
                                     Log.d("FIREBASE", "unchecked")
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasCan = false
                                 }
                             }
 
@@ -84,6 +92,8 @@ class CanListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasCan2 = true
+
                                     datas.apply {
                                         add(
                                             CanListInfo(
@@ -96,6 +106,9 @@ class CanListFragment : Fragment() {
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                                     Log.d("FIREBASE", "checked")
+                                }
+                                else{
+                                    hasCan2 = false
                                 }
                             }
 
@@ -111,6 +124,15 @@ class CanListFragment : Fragment() {
                 )
 
                 canListAdapter.notifyDataSetChanged()
+
+                if(hasCan || hasCan2){
+                    binding.constraintlayoutCanRecycler.visibility = View.VISIBLE
+                    binding.constraintlayoutCanEmpty.visibility = View.GONE
+                }
+                else if(!hasCan && !hasCan2){
+                    binding.constraintlayoutCanRecycler.visibility = View.GONE
+                    binding.constraintlayoutCanEmpty.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

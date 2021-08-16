@@ -27,6 +27,11 @@ class VinylListFragment : Fragment() {
 
     var datas= mutableListOf<VinylListInfo>()
 
+    var hasVinyl: Boolean = false
+    var hasVinyl2: Boolean = false
+    var hasVinyl3: Boolean = false
+    var hasVinyl4: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +60,8 @@ class VinylListFragment : Fragment() {
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasVinyl = true
+
                                     datas.apply {
                                         add(
                                             VinylListInfo(
@@ -67,6 +74,9 @@ class VinylListFragment : Fragment() {
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
                                 }
+                                else{
+                                    hasVinyl = false
+                                }
                             }
 
                             else {
@@ -75,14 +85,16 @@ class VinylListFragment : Fragment() {
                         }
                     }
 
-                    if (userSnapshot.child("checked").hasChild("vinyl")) {
-                        for (imageSnapshot in userSnapshot.child("checked").child("Vinyl").children) {
+                    if (userSnapshot.child("unchecked").hasChild("stick vinyl")) {
+                        for (imageSnapshot in userSnapshot.child("unchecked").child("stick vinyl").children) {
                             if (imageSnapshot.hasChildren()) {
                                 val date = imageSnapshot.child("date").getValue(String::class.java)
-                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("image").getValue(String::class.java)
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {
+                                    hasVinyl2 = true
+
                                     datas.apply {
                                         add(
                                             VinylListInfo(
@@ -94,6 +106,75 @@ class VinylListFragment : Fragment() {
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasVinyl2 = false
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("checked").hasChild("vinyl")) {
+                        for (imageSnapshot in userSnapshot.child("checked").child("vinyl").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    hasVinyl3 = true
+
+                                    datas.apply {
+                                        add(
+                                            VinylListInfo(
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
+                                            )
+                                        )
+                                    }
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasVinyl3 = false
+                                }
+                            }
+
+                            else {
+                                Log.d("FIREBASE", "not hasChildren")
+                            }
+                        }
+                    }
+
+                    if (userSnapshot.child("checked").hasChild("stick vinyl")) {
+                        for (imageSnapshot in userSnapshot.child("checked").child("stick vinyl").children) {
+                            if (imageSnapshot.hasChildren()) {
+                                val date = imageSnapshot.child("date").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val pred = imageSnapshot.child("pred").getValue(String::class.java)
+
+                                if (date != null && imageFile != null && pred != null) {
+                                    hasVinyl4 = true
+
+                                    datas.apply {
+                                        add(
+                                            VinylListInfo(
+                                                detect_image = imageFile,
+                                                detect_percent = pred,
+                                                detect_date = date
+                                            )
+                                        )
+                                    }
+
+                                    Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                                }
+                                else{
+                                    hasVinyl4 = false
                                 }
                             }
 
@@ -109,6 +190,15 @@ class VinylListFragment : Fragment() {
                 )
 
                 vinylListAdapter.notifyDataSetChanged()
+
+                if(hasVinyl || hasVinyl2 || hasVinyl3 || hasVinyl4){
+                    binding.constraintlayoutVinylRecycler.visibility = View.VISIBLE
+                    binding.constraintlayoutVinylEmpty.visibility = View.GONE
+                }
+                else if(!hasVinyl && !hasVinyl2 && !hasVinyl3 && !hasVinyl4){
+                    binding.constraintlayoutVinylRecycler.visibility = View.GONE
+                    binding.constraintlayoutVinylEmpty.visibility = View.VISIBLE
+                }
             }
 
 
