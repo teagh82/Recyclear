@@ -10,6 +10,9 @@ import com.sungshin.recyclearuser.my.MyActivity
 import com.sungshin.recyclearuser.news.NewsActivity
 import com.sungshin.recyclearuser.point.PointActivity
 import com.sungshin.recyclearuser.recycle.RecycleActivity
+import com.sungshin.recyclearuser.utils.MyPref
+import java.io.PrintWriter
+import java.net.Socket
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +48,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             Log.d("button", "NEWS")
         }
+        binding.buttonMainDetect.setOnClickListener{
+            val thread = ClientThread()
+            thread.start()
+
+            Toast.makeText(this, "분류를 시작합니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     override fun onBackPressed() {
@@ -55,6 +64,29 @@ class MainActivity : AppCompatActivity() {
 
         else {
             finish()
+        }
+    }
+
+    protected class ClientThread : Thread() {
+        override fun run() {
+            val host = "3.38.63.94"
+            val port = 9724
+            try {
+                val saveIDdata = MyPref.prefs.getString("id", " ").split(".com")[0]
+                val socket = Socket(host, port)
+                Log.e("sck", "suc")
+
+                val out = PrintWriter(socket.getOutputStream(), true)
+                out.print(saveIDdata)
+                out.flush()
+
+                socket.close()
+            }
+
+            catch (e: Exception) {
+                Log.e("sck", "fail")
+                e.printStackTrace()
+            }
         }
     }
 }
