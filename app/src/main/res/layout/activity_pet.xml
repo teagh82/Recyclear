@@ -16,7 +16,7 @@
         android:background="@drawable/textview_radius_title"
         android:gravity="center"
         android:paddingVertical="10dp"
-        android:text="PET"
+        android:text="PLASTIC"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -27,7 +27,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_pet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_pet_title" />

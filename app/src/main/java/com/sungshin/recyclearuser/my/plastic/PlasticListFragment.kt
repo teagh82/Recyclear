@@ -1,16 +1,22 @@
 package com.sungshin.recyclearuser.my.plastic
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.sungshin.recyclearuser.R
 import com.sungshin.recyclearuser.databinding.FragmentPlasticListBinding
 import com.sungshin.recyclearuser.my.plastic.plasticlist.PlasticListAdapter
 import com.sungshin.recyclearuser.my.plastic.plasticlist.PlasticListInfo
@@ -26,6 +32,12 @@ class PlasticListFragment : Fragment() {
     val database = firebaseDB.database
 
     var datas= mutableListOf<PlasticListInfo>()
+
+    private lateinit var progressDialog: AppCompatDialog
+
+    var hasPet: Boolean = false
+    var hasPet2: Boolean = false
+    var hasPet3: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +56,8 @@ class PlasticListFragment : Fragment() {
     }
 
     private fun loadDatas() {
+        progressON()
+
         val saveIDdata = MyPref.prefs.getString("id", " ").split(".com")[0]
 
         val valueEventListener = object : ValueEventListener {
@@ -58,6 +72,8 @@ class PlasticListFragment : Fragment() {
                             val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                             if (date != null && imageFile != null && pred != null) {
+                                hasPet = true
+
                                 datas.apply {
                                     add(
                                         PlasticListInfo(
@@ -69,6 +85,9 @@ class PlasticListFragment : Fragment() {
                                 }
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                            }
+                            else{
+                                hasPet = false
                             }
                         }
 
@@ -87,6 +106,7 @@ class PlasticListFragment : Fragment() {
                             val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                             if (date != null && imageFile != null && pred != null) {
+                                hasPet2 = true
                                 datas.apply {
                                     add(
                                         PlasticListInfo(
@@ -98,6 +118,9 @@ class PlasticListFragment : Fragment() {
                                 }
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                            }
+                            else{
+                                hasPet2 = false
                             }
                         }
 
@@ -116,6 +139,7 @@ class PlasticListFragment : Fragment() {
                             val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                             if (date != null && imageFile != null && pred != null) {
+                                hasPet3 = true
                                 datas.apply {
                                     add(
                                         PlasticListInfo(
@@ -127,6 +151,9 @@ class PlasticListFragment : Fragment() {
                                 }
 
                                 Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
+                            }
+                            else{
+                                hasPet3 = false
                             }
                         }
 
@@ -143,6 +170,15 @@ class PlasticListFragment : Fragment() {
                 // 데이터 변경되었으니 업데이트해라
                 plasticListAdapter.notifyDataSetChanged()
 
+                if(hasPet || hasPet2 || hasPet3){
+                    binding.constraintlayoutPlasticRecycler.visibility = View.VISIBLE
+                    binding.constraintlayoutPlasticEmpty.visibility = View.GONE
+                }
+                else if(!hasPet && !hasPet2 && !hasPet3){
+                    binding.constraintlayoutPlasticRecycler.visibility = View.GONE
+                    binding.constraintlayoutPlasticEmpty.visibility = View.VISIBLE
+                }
+                progressOFF()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -152,5 +188,27 @@ class PlasticListFragment : Fragment() {
 
         val classRef = database.reference.child("User").child(saveIDdata)
         classRef.addValueEventListener(valueEventListener)
+    }
+
+    // loading indicator
+    fun progressON(){
+        progressDialog = AppCompatDialog(this.context)
+        progressDialog.setCancelable(false)
+        progressDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        progressDialog.setContentView(R.layout.loading)
+        progressDialog.show()
+        var img_loading_framge = progressDialog.findViewById<ImageView>(R.id.iv_frame_loading)
+        var frameAnimation = img_loading_framge?.getBackground() as AnimationDrawable
+        img_loading_framge?.post(object : Runnable{
+            override fun run() {
+                frameAnimation.start()
+            }
+
+        })
+    }
+    fun progressOFF(){
+        if(progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss()
+        }
     }
 }
