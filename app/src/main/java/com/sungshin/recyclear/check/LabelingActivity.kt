@@ -57,8 +57,9 @@ class LabelingActivity : AppCompatActivity() {
             Log.d("LABELING", "LABELING END")
             Toast.makeText(this, "재학습 데이터를 서버에 전송했습니다.", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this, CheckActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, CheckActivity::class.java)
+//            startActivity(intent)
+            finish()
         }
 
         binding.buttonLabelingErase.setOnClickListener {

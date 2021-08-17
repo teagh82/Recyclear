@@ -1,16 +1,22 @@
 package com.sungshin.recyclear.metal
 
+import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.sungshin.recyclear.R
 import com.sungshin.recyclear.databinding.FragmentMetalListBinding
 import com.sungshin.recyclear.metal.metallist.MetalListAdapter
 import com.sungshin.recyclear.metal.metallist.MetalListInfo
@@ -30,6 +36,8 @@ class MetalListFragment : Fragment() {
     var hasMetal3: Boolean = false
     var hasMetal4: Boolean = false
 
+    private lateinit var progressDialog: AppCompatDialog
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +55,7 @@ class MetalListFragment : Fragment() {
     }
 
     private fun loadDatas(){
+        progressON()
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
@@ -197,6 +206,7 @@ class MetalListFragment : Fragment() {
                     binding.constraintlayoutMetalRecycler.visibility = View.GONE
                     binding.constraintlayoutMetalEmpty.visibility = View.VISIBLE
                 }
+                progressOFF()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -206,5 +216,27 @@ class MetalListFragment : Fragment() {
 
         val classRef = database.reference.child("User")
         classRef.addValueEventListener(valueEventListener)
+    }
+
+    // loading indicator
+    fun progressON(){
+        progressDialog = AppCompatDialog(this.context)
+        progressDialog.setCancelable(false)
+        progressDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        progressDialog.setContentView(R.layout.loading)
+        progressDialog.show()
+        var img_loading_framge = progressDialog.findViewById<ImageView>(R.id.iv_frame_loading)
+        var frameAnimation = img_loading_framge?.getBackground() as AnimationDrawable
+        img_loading_framge?.post(object : Runnable{
+            override fun run() {
+                frameAnimation.start()
+            }
+
+        })
+    }
+    fun progressOFF(){
+        if(progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss()
+        }
     }
 }

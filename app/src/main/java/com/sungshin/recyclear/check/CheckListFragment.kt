@@ -1,16 +1,22 @@
 package com.sungshin.recyclear.check
 
+import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.sungshin.recyclear.R
 import com.sungshin.recyclear.check.checklist.CheckListAdapter
 import com.sungshin.recyclear.check.checklist.CheckListInfo
 import com.sungshin.recyclear.databinding.FragmentCheckListBinding
@@ -27,6 +33,8 @@ class CheckListFragment : Fragment() {
     var datas= mutableListOf<CheckListInfo>()
 
     var hasCheck: Boolean = false
+
+    private lateinit var progressDialog: AppCompatDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +53,8 @@ class CheckListFragment : Fragment() {
 
     // 서버 연결
     private fun loadDatas(){
+        progressON()
+
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (classSnapshot in dataSnapshot.children) {
@@ -99,6 +109,8 @@ class CheckListFragment : Fragment() {
                     binding.constraintlayoutCheckRecycler.visibility = View.GONE
                     binding.constraintlayoutCheckEmpty.visibility = View.VISIBLE
                 }
+
+                progressOFF()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -108,5 +120,27 @@ class CheckListFragment : Fragment() {
 
         val classRef = database.reference.child("Admin")
         classRef.addValueEventListener(valueEventListener)
+    }
+
+    // loading indicator
+    fun progressON(){
+        progressDialog = AppCompatDialog(this.context)
+        progressDialog.setCancelable(false)
+        progressDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        progressDialog.setContentView(R.layout.loading)
+        progressDialog.show()
+        var img_loading_framge = progressDialog.findViewById<ImageView>(R.id.iv_frame_loading)
+        var frameAnimation = img_loading_framge?.getBackground() as AnimationDrawable
+        img_loading_framge?.post(object : Runnable{
+            override fun run() {
+                frameAnimation.start()
+            }
+
+        })
+    }
+    fun progressOFF(){
+        if(progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss()
+        }
     }
 }

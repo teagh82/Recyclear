@@ -1,14 +1,20 @@
 package com.sungshin.recyclear.can
 
+import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.sungshin.recyclear.R
 import com.sungshin.recyclear.can.canlist.CanListAdapter
 import com.sungshin.recyclear.can.canlist.CanListInfo
 import com.sungshin.recyclear.databinding.FragmentCanListBinding
@@ -26,6 +32,8 @@ class CanListFragment : Fragment() {
 
     var hasCan: Boolean = false
     var hasCan2: Boolean = false
+
+    private lateinit var progressDialog: AppCompatDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +53,7 @@ class CanListFragment : Fragment() {
 
     // 서버 연결
     private fun loadDatas(){
+        progressON()
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
@@ -133,6 +142,7 @@ class CanListFragment : Fragment() {
                     binding.constraintlayoutCanRecycler.visibility = View.GONE
                     binding.constraintlayoutCanEmpty.visibility = View.VISIBLE
                 }
+                progressOFF()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -142,5 +152,27 @@ class CanListFragment : Fragment() {
 
         val classRef = database.reference.child("User")
         classRef.addValueEventListener(valueEventListener)
+    }
+
+    // loading indicator
+    fun progressON(){
+        progressDialog = AppCompatDialog(this.context)
+        progressDialog.setCancelable(false)
+        progressDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        progressDialog.setContentView(R.layout.loading)
+        progressDialog.show()
+        var img_loading_framge = progressDialog.findViewById<ImageView>(R.id.iv_frame_loading)
+        var frameAnimation = img_loading_framge?.getBackground() as AnimationDrawable
+        img_loading_framge?.post(object : Runnable{
+            override fun run() {
+                frameAnimation.start()
+            }
+
+        })
+    }
+    fun progressOFF(){
+        if(progressDialog != null && progressDialog.isShowing()){
+            progressDialog.dismiss()
+        }
     }
 }
