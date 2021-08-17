@@ -16,7 +16,7 @@
         android:gravity="center"
         android:paddingVertical="10dp"
         android:text="Recyclear"
-        android:textColor="@color/green_title"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/black"
@@ -36,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,13 +45,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_main_title">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_main_point"
+        <Button
+            android:id="@+id/button_main_detect"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@drawable/btn_radius_check"
-            android:text="포인트 전환하기"
-            android:textColor="@color/white"
+            android:background="@drawable/textview_radius_splash"
+            android:text="분리수거 시작"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,10 +58,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_main_diary"
+            android:id="@+id/button_main_point"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginTop="30dp"
+            android:background="@drawable/btn_radius_check"
+            android:text="포인트 전환하기"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_main_detect" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_main_diary"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/btn_radius_check"
             android:text="내 수첩"
             android:textColor="@color/white"
@@ -75,7 +90,7 @@
             android:id="@+id/button_main_recycle"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/btn_radius_check"
             android:text="분리수거 상식"
             android:textColor="@color/white"
@@ -90,7 +105,7 @@
             android:id="@+id/button_main_news"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/btn_radius_check"
             android:text="환경소식"
             android:textColor="@color/white"
@@ -103,13 +118,30 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/button_main_detect"
+    <ImageView
+        android:id="@+id/textview_main_pointtitle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/icon_point"
+        app:layout_constraintEnd_toStartOf="@+id/textview_main_point"
+        app:layout_constraintTop_toBottomOf="@+id/textview_main_title" />
+
+    <TextView
+        android:id="@+id/textview_main_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Detect!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:text="100"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_main_buttons" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_main_title" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
