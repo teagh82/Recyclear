@@ -43,7 +43,7 @@ class PointActivity : AppCompatActivity() {
     }
 
     private fun onClickButton() {
-        binding.getPointBtn.setOnClickListener {
+        binding.buttonPointGet.setOnClickListener {
             moveData()
 
             addPoint = datas.size * 10

@@ -14,7 +14,7 @@ class CanDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textviewCanDate.text = intent.getStringExtra("detect_date")
-        binding.textviewCanPercent.text = intent.getStringExtra("detect_percent")
+        binding.textviewCanPercent.text = "정확도 : " + intent.getStringExtra("detect_percent")
         Glide.with(this)
             .load(intent.getStringExtra("detect_image"))
             .into(binding.imageviewCanDetail)

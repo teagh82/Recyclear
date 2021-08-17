@@ -63,7 +63,7 @@ class SigninActivity : AppCompatActivity() {
                         task ->
                     if (task.isSuccessful) {
                         Toast.makeText(applicationContext,
-                            "로그인 성공!", Toast.LENGTH_SHORT).show()
+                            "분리수거를 시작해보세요!", Toast.LENGTH_SHORT).show()
                         MyPref.prefs.setString("id", binding.edittextSigninId.text.toString())
                         val intent = Intent(this@SigninActivity, MainActivity::class.java)
                         startActivity(intent)

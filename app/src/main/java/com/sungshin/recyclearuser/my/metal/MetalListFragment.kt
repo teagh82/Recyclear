@@ -76,7 +76,7 @@ class MetalListFragment : Fragment() {
                                     add(
                                         MetalListInfo(
                                             detect_image = imageFile,
-                                            detect_percent = pred,
+                                            detect_percent = pred.substring(2,4) + "%",
                                             detect_date = date
                                         )
                                     )
@@ -110,7 +110,7 @@ class MetalListFragment : Fragment() {
                                     add(
                                         MetalListInfo(
                                             detect_image = imageFile,
-                                            detect_percent = pred,
+                                            detect_percent = pred.substring(2,4) + "%",
                                             detect_date = date
                                         )
                                     )

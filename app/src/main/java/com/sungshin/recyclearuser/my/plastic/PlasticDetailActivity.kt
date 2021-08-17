@@ -14,7 +14,7 @@ class PlasticDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textviewPlasticDate.text = intent.getStringExtra("detect_date")
-        binding.textviewPlasticPercent.text = intent.getStringExtra("detect_percent")
+        binding.textviewPlasticPercent.text = "정확도 : " + intent.getStringExtra("detect_percent")
         Glide.with(this)
             .load(intent.getStringExtra("detect_image"))
             .into(binding.imageviewPlasticDetail)
