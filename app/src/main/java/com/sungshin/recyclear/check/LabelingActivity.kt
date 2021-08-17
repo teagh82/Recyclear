@@ -52,7 +52,7 @@ class LabelingActivity : AppCompatActivity() {
             var yoloImg = labelImg
 
             sendData(yoloLabel, yoloImg)
-            //eraseData(labelImgName)
+            eraseData(labelImgName)
 
             Log.d("LABELING", "LABELING END")
 
