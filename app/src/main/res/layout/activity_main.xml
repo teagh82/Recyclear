@@ -119,7 +119,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/textview_main_pointtitle"
+        android:id="@+id/imageview_main_pointtitle"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="28dp"

@@ -28,17 +28,12 @@ class PointActivity : AppCompatActivity() {
     val saveIDdata = MyPref.prefs.getString("id", " ").split(".com")[0]
     private val pointListAdapter: PointListAdapter by lazy{ PointListAdapter() }
 
-    var datas= mutableListOf<PointListInfo>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPointBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getPoints()
 
-        // need to change : add point == image size //
-        addPoint = datas.size
-        Log.d("POINTS", "addPoint: $addPoint")
         val pointListFragment = PointListFragment()
 
         val transaction = supportFragmentManager.beginTransaction()
@@ -51,8 +46,11 @@ class PointActivity : AppCompatActivity() {
         binding.getPointBtn.setOnClickListener {
             //eraseData()
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            // need to change : add point == image size //
+            addPoint = datas.size * 10
+            var data = datas.toString()
+            Log.d("POINTS", "addPoint: $addPoint $data")
+
 
             if (curPoint != "") {
                 val changePoint = (curPoint.toInt() + addPoint).toString()
@@ -68,6 +66,8 @@ class PointActivity : AppCompatActivity() {
             else {
                 Log.d("POINTS", "no cur point err")
             }
+
+            finish()
         }
     }
 

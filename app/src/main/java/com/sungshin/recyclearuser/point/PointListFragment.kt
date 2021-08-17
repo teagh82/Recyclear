@@ -23,6 +23,7 @@ import com.sungshin.recyclearuser.point.pointlist.PointListInfo
 import com.sungshin.recyclearuser.utils.FirebaseUtil
 import com.sungshin.recyclearuser.utils.MyPref
 
+var datas= mutableListOf<PointListInfo>()
 
 class PointListFragment : Fragment() {
     private var _binding: FragmentPointListBinding? = null
@@ -31,8 +32,6 @@ class PointListFragment : Fragment() {
 
     val firebaseDB = FirebaseUtil()
     val database = firebaseDB.database
-
-    var datas= mutableListOf<PointListInfo>()
 
     var hasPoint: Boolean = false
 

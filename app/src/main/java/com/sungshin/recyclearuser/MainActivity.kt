@@ -28,12 +28,15 @@ class MainActivity : AppCompatActivity() {
     val firebaseDB = FirebaseUtil()
     val database = firebaseDB.database
 
+    val saveIDdata = MyPref.prefs.getString("id", " ").split(".com")[0]
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         onClickBtns()
+        getPoints()
     }
 
     private fun onClickBtns(){
@@ -75,5 +78,29 @@ class MainActivity : AppCompatActivity() {
         else {
             finish()
         }
+    }
+
+    private fun getPoints() {
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.hasChild("points")) {
+                    var curPoint = dataSnapshot.child("points").getValue(String::class.java).toString()
+
+                    binding.textviewMainPoint.text = curPoint
+                    Log.w("POINTS", "curPoint: $curPoint")
+                }
+
+                else {
+                    Log.w("POINTS", "no hasChild")
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("POINTS", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+
+        val pointRef = database.getReference("User").child(saveIDdata)
+        pointRef.addValueEventListener(postListener)
     }
 }
