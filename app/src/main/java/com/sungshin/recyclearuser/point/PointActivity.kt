@@ -44,9 +44,8 @@ class PointActivity : AppCompatActivity() {
 
     private fun onClickButton() {
         binding.getPointBtn.setOnClickListener {
-            //eraseData()
+            moveData()
 
-            // need to change : add point == image size //
             addPoint = datas.size * 10
             var data = datas.toString()
             Log.d("POINTS", "addPoint: $addPoint $data")
@@ -95,10 +94,16 @@ class PointActivity : AppCompatActivity() {
         Log.d("POINTS", curPoint)
     }
 
-    private fun eraseData() {
-        // need to change : traverse delete files //
+    private fun moveData() {
         for (data in datas) {
-            database.getReference("User").child(saveIDdata).child(data.detect_class).child(data.detect_image_name).removeValue()
+            var checkedRef = database.getReference("User").child(saveIDdata).child("checked")
+                .child(data.detect_class).child(data.detect_image_name)
+            checkedRef.child("date").setValue(data.detect_date)
+            checkedRef.child("image").setValue(data.detect_image)
+            checkedRef.child("pred").setValue(data.detect_pred)
+
+            database.getReference("User").child(saveIDdata).child("unchecked")
+                .child(data.detect_class).child(data.detect_image_name).removeValue()
             .addOnSuccessListener {
                 Log.d("POINTS", "eraseData success")
             }

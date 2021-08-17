@@ -68,6 +68,8 @@ class PointListFragment : Fragment() {
                             val date = imageSnapshot.child("date").getValue(String::class.java)
                             val imageFile =
                                 imageSnapshot.child("image").getValue(String::class.java)
+                            val pred =
+                                imageSnapshot.child("pred").getValue(String::class.java).toString()
                             val imageFileName = imageSnapshot.key.toString()
                             val label = classSnapshot.key
                             val className = classSnapshot.key.toString()
@@ -81,13 +83,14 @@ class PointListFragment : Fragment() {
                                             detect_image = imageFile,
                                             detect_image_name = imageFileName,
                                             detect_label = label,
+                                            detect_pred = pred,
                                             detect_date = date,
                                             detect_class = className
                                         )
                                     )
                                 }
 
-                                Log.d("FIREBASE", "date: $date / img: $imageFile / label: $label")
+                                Log.d("FIREBASE", "date: $date / img: $imageFile / label: $label, / pred: $pred")
                             }
                             else{
                                 hasPoint = false
