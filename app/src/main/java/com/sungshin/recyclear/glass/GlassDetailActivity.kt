@@ -14,7 +14,7 @@ class GlassDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textviewGlassDate.text = intent.getStringExtra("detect_date")
-        binding.textviewGlassPercent.text = intent.getStringExtra("detect_percent")
+        binding.textviewGlassPercent.text = "정확도 : " + intent.getStringExtra("detect_percent")
         Glide.with(this)
             .load(intent.getStringExtra("detect_image"))
             .into(binding.imageviewGlassDetail)

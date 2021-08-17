@@ -14,7 +14,7 @@ class MetalDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textviewMetalDate.text = intent.getStringExtra("detect_date")
-        binding.textviewMetalPercent.text = intent.getStringExtra("detect_percent")
+        binding.textviewMetalPercent.text = "정확도 : " + intent.getStringExtra("detect_percent")
         Glide.with(this)
             .load(intent.getStringExtra("detect_image"))
             .into(binding.imageviewMetalDetail)

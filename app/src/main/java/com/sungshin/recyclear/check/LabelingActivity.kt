@@ -55,7 +55,6 @@ class LabelingActivity : AppCompatActivity() {
             //eraseData(labelImgName)
 
             Log.d("LABELING", "LABELING END")
-            Toast.makeText(this, "재학습 데이터를 서버에 전송했습니다.", Toast.LENGTH_SHORT).show()
 
 //            val intent = Intent(this, CheckActivity::class.java)
 //            startActivity(intent)
@@ -93,34 +92,38 @@ class LabelingActivity : AppCompatActivity() {
                         ).show()
 
                         labelName = position - 1
+
+                        binding.buttonLabelingEnd.isEnabled = true
                     }
                     // 맨 위부터 position 0번부터 순서대로 동작
-                    when (position) {
-                        0 -> {
-                        }
-                        1 -> {
-
-                        }
-                        2 -> {
-
-                        }
-                        3 -> {
-
-                        }
-                        4 -> {
-
-                        }
-                        5 -> {
-
-                        }
-                        6 -> {
-
-                        }
-                        else -> {
-
-                        }
-                    }
+//                    when (position) {
+//                        0 -> {
+//                        }
+//                        1 -> {
+//
+//                        }
+//                        2 -> {
+//
+//                        }
+//                        3 -> {
+//
+//                        }
+//                        4 -> {
+//
+//                        }
+//                        5 -> {
+//
+//                        }
+//                        6 -> {
+//
+//                        }
+//                        else -> {
+//
+//                        }
+//                    }
                 }
+                else
+                    binding.buttonLabelingEnd.isEnabled = false
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -141,6 +144,8 @@ class LabelingActivity : AppCompatActivity() {
             val yoloRefLabel =
                 database.getReference("Yolo").child(img_name).child("label")
             yoloRefLabel.setValue(yoloLabel)
+
+            Toast.makeText(this, "재학습 데이터를 서버에 전송했습니다.", Toast.LENGTH_SHORT).show()
         }
 
         else {

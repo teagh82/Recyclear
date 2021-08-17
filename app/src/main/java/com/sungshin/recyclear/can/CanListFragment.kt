@@ -73,7 +73,7 @@ class CanListFragment : Fragment() {
                                         add(
                                             CanListInfo(
                                                 detect_image = imageFile,
-                                                detect_percent = pred,
+                                                detect_percent = pred.substring(2,4) + "%",
                                                 detect_date = date
                                             )
                                         )
@@ -107,14 +107,14 @@ class CanListFragment : Fragment() {
                                         add(
                                             CanListInfo(
                                                 detect_image = imageFile,
-                                                detect_percent = pred,
+                                                detect_percent = pred.substring(2,4) + "%",
                                                 detect_date = date
                                             )
                                         )
                                     }
 
                                     Log.d("FIREBASE", "date: $date / img: $imageFile / pred: $pred")
-                                    Log.d("FIREBASE", "checked")
+                                    Log.d("FIREBASE", "checked ${pred.substring(2,4)}")
                                 }
                                 else{
                                     hasCan2 = false

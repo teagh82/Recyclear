@@ -14,7 +14,7 @@ class PaperDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textviewPaperDate.text = intent.getStringExtra("detect_date")
-        binding.textviewPaperPercent.text = intent.getStringExtra("detect_percent")
+        binding.textviewPaperPercent.text = "정확도 : " + intent.getStringExtra("detect_percent")
         Glide.with(this)
             .load(intent.getStringExtra("detect_image"))
             .into(binding.imageviewPaperDetail)
