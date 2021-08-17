@@ -14,7 +14,7 @@ class VinylDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textviewVinylDate.text = intent.getStringExtra("detect_date")
-        binding.textviewVinylPercent.text = intent.getStringExtra("detect_percent")
+        binding.textviewVinylPercent.text = "정확도 : " + intent.getStringExtra("detect_percent")
         Glide.with(this)
             .load(intent.getStringExtra("detect_image"))
             .into(binding.imageviewVinylDetail)

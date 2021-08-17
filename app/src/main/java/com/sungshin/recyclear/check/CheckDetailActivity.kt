@@ -20,7 +20,7 @@ class CheckDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textviewCheckDate.text = intent.getStringExtra("detect_date")
-        binding.textviewCheckPercent.text = intent.getStringExtra("detect_percent")
+        binding.textviewCheckPercent.text = "정확도 : " + intent.getStringExtra("detect_percent") + "%"
         Glide.with(this)
             .load(intent.getStringExtra("detect_image"))
             .into(binding.imageviewCheckDetail)

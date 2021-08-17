@@ -61,18 +61,31 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/textview_labeling_labelinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="라벨링을 완료한 후 재학습이 이루어집니다."
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_labeling_canvas" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_labeling_end"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:background="@color/blue"
         android:text="라벨링 완료"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_labeling_canvas" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_labeling_labelinfo" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_labeling_erase"
