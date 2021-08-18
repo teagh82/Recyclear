@@ -97,7 +97,7 @@ class CanListFragment : Fragment() {
                         for (imageSnapshot in userSnapshot.child("checked").child("can").children) {
                             if (imageSnapshot.hasChildren()) {
                                 val date = imageSnapshot.child("date").getValue(String::class.java)
-                                val imageFile = imageSnapshot.child("imageFile").getValue(String::class.java)
+                                val imageFile = imageSnapshot.child("image").getValue(String::class.java)
                                 val pred = imageSnapshot.child("pred").getValue(String::class.java)
 
                                 if (date != null && imageFile != null && pred != null) {

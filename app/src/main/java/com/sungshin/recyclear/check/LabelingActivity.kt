@@ -52,7 +52,7 @@ class LabelingActivity : AppCompatActivity() {
             var yoloImg = labelImg
 
             sendData(yoloLabel, yoloImg)
-            //eraseData(labelImgName)
+            eraseData(labelImgName)
 
             Log.d("LABELING", "LABELING END")
 
@@ -138,11 +138,11 @@ class LabelingActivity : AppCompatActivity() {
             Log.d("LABELING", img_name)
 
             val yoloRefImg =
-                database.getReference("Yolo").child(img_name).child("origin")
+                database.getReference("Retrain").child(img_name).child("origin")
             yoloRefImg.setValue(yoloImg)
 
             val yoloRefLabel =
-                database.getReference("Yolo").child(img_name).child("label")
+                database.getReference("Retrain").child(img_name).child("label")
             yoloRefLabel.setValue(yoloLabel)
 
             Toast.makeText(this, "재학습 데이터를 서버에 전송했습니다.", Toast.LENGTH_SHORT).show()
